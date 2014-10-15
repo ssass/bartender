@@ -7,7 +7,7 @@ class PsConfigurationHandler(ConfigurationHandler):
         """ Write the standard settings file
 
         """
-        config = configparser.RawConfigParser()
+        config = ConfigParser.RawConfigParser()
         config.add_section('DEFAULT')
         config.set('DEFAULT', 'workingDir', '')
         config.add_section('PRIMER3')
@@ -30,7 +30,7 @@ class PsConfigurationHandler(ConfigurationHandler):
 
         """
 
-        config = configparser.RawConfigParser()
+        config = ConfigParser.RawConfigParser()
         config.read(self.path)
         c = Configuration()
         c.wd = config.get('DEFAULT', 'workingDir')

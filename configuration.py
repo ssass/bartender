@@ -1,4 +1,4 @@
-import configparser
+import ConfigParser
 
 
 class Configuration:
