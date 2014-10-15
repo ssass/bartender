@@ -1,4 +1,5 @@
 import ConfigParser
+import os.path
 
 
 class Configuration:
@@ -14,6 +15,10 @@ class ConfigurationHandler:
         :param path:
         """
         self.path = path
+        print path
+        if not os.path.isfile(self.path):
+            self.write_standard_config()
+
 
     def write_standard_config(self):  # Write the standard settings file
         """ Write the standard settings file

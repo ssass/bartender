@@ -8,23 +8,26 @@ class PsConfigurationHandler(ConfigurationHandler):
 
         """
         config = ConfigParser.RawConfigParser()
-        config.add_section('DEFAULT')
         config.set('DEFAULT', 'workingDir', '')
-        config.add_section('PRIMER3')
+
+        config.add_section('Primer3')
         config.set('Primer3', 'path', '')
         config.set('Primer3', 'configPath', '')
+
         config.add_section('BLAST')
         config.set('BLAST', 'path', '')
         config.set('BLAST', 'maxHits', 5)
+
         config.add_section('RNAcofold')
         config.set('RNAcofold', 'path', '')
+
         config.add_section('Optimization')
         config.set('Optimization', 'steps', 500)
         config.set('Optimization', 'maxTemp', 15)
+
         with open(self.path, 'w') as configfile:
             config.write(configfile)
 
-    @property
     def read_config(self):  # Read the settings file
         """ Read the settings file
 
