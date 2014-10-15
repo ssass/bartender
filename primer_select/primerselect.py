@@ -1,6 +1,6 @@
 import argparse
 import subprocess
-from primer_select.ps_configuration import PsConfigurationHandler
+from ps_configuration import PsConfigurationHandler
 import csv
 
 parser = argparse.ArgumentParser(description='Run the PrimerSelect pipeline.')
