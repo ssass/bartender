@@ -40,7 +40,7 @@ class PsConfigurationHandler(ConfigurationHandler):
         c.wd = config.get('DEFAULT', 'workingDir')
         c.p3_path = config.get('Primer3', 'path')
         c.p3_config_path = config.get('Primer3', 'configPath')
-        c.p3_config_path = config.get('Primer3', 'thermoParamPath')
+        c.p3_thermo_path = config.get('Primer3', 'thermoParamPath')
 
         c.blast_path = config.get('BLAST', 'path')
         c.blast_max_hits = config.getint('BLAST', 'maxHits')
