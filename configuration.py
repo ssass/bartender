@@ -15,7 +15,6 @@ class ConfigurationHandler:
         :param path:
         """
         self.path = path
-        print path
         if not os.path.isfile(self.path):
             self.write_standard_config()
 
