@@ -11,8 +11,9 @@ class PsConfigurationHandler(ConfigurationHandler):
         config.set('DEFAULT', 'workingDir', '')
 
         config.add_section('Primer3')
-        config.set('Primer3', 'path', '')
+        config.set('Primer3', 'path', '/usr/local/bin/primer3_core')
         config.set('Primer3', 'configPath', '')
+        config.set('Primer3', 'thermoParamPath', '')
 
         config.add_section('BLAST')
         config.set('BLAST', 'path', '')
@@ -39,6 +40,7 @@ class PsConfigurationHandler(ConfigurationHandler):
         c.wd = config.get('DEFAULT', 'workingDir')
         c.p3_path = config.get('Primer3', 'path')
         c.p3_config_path = config.get('Primer3', 'configPath')
+        c.p3_config_path = config.get('Primer3', 'thermoParamPath')
 
         c.blast_path = config.get('BLAST', 'path')
         c.blast_max_hits = config.getint('BLAST', 'maxHits')
