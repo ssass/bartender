@@ -22,6 +22,6 @@ for record in SeqIO.parse(handle, "fasta"):
     f.write("PRIMER_THERMODYNAMIC_PARAMETERS_PATH=" + config.p3_thermo_path + "\n=")
     cmd = [config.p3_path, "-format_output", "-p3_settings_file=" + config.p3_config_path, "-output=" + record.id + "_p3.txt", p3file]
     #print cmd
-    subprocess.check_call(cmd)
+    subprocess.call(cmd)
 handle.close()
 
