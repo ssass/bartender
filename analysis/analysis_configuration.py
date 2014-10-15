@@ -7,7 +7,7 @@ class AnalysisConfigurationHandler(ConfigurationHandler):
         """ Write the standard settings file
 
         """
-        config = configparser.RawConfigParser()
+        config = ConfigParser.RawConfigParser()
         config.add_section('BLAT')
         config.set('BLAT', 'path', '')
         config.set('BLAT', 'minScore', 0)
@@ -21,7 +21,7 @@ class AnalysisConfigurationHandler(ConfigurationHandler):
 
         """
 
-        config = configparser.RawConfigParser()
+        config = ConfigParser.RawConfigParser()
         config.read("config.cfg")
         c = Configuration()
         c.path = config.get('BLAT', 'path')

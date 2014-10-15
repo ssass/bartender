@@ -8,5 +8,5 @@ args = parser.parse_args()
 from Bio import SeqIO
 handle = open(args.input, "rU")
 for record in SeqIO.parse(handle, "fasta"):
-    print record.id
+    print record.seq
 handle.close()
