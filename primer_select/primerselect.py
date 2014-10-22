@@ -47,7 +47,7 @@ for record in SeqIO.parse(handle, "fasta"):
     print cmd
     args = shlex.split(cmd)
     # print args
-    p = subprocess.Popen(args)
+    p = subprocess.Popen(args, stdin=subprocess.PIPE)
     p.communicate(input_String)
     p.terminate()
     #time.sleep(10)
