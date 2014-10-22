@@ -25,7 +25,7 @@ for record in SeqIO.parse(handle, "fasta"):
     # target_start = sequence.find("\[")
     # target_end = sequence.find("\]")
     # target_length = target_end - target_start - 1
-    # print target_start + "\n"
+    # print str(target_start) + "\n"
     # print target_length
     #
     # print "SEQUENCE_TARGET=" + target_start + "," + target_length
@@ -41,9 +41,10 @@ for record in SeqIO.parse(handle, "fasta"):
 
     #print cmd
     cmd = config.p3_path + " -format_output -p3_settings_file=" + config.p3_config_path + " -output=" + record.id + "_p3.txt "+ p3file
-    print cmd
+    #print cmd
     args = shlex.split(cmd)
+    print args
     p = subprocess.Popen(args)
-    time.sleep(10)
+    #time.sleep(10)
 handle.close()
 
