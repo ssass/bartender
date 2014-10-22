@@ -55,7 +55,7 @@ for record in SeqIO.parse(handle, "fasta"):
     p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     p3_output = p.communicate(input_string)[0].strip()
 
-    print record.id + " " + str(p3_output[0]) + "\n"
+    print record.id + " " + str(p3_output) + "\n"
 
     p3_output = p3_output.split("\n")
     primer_pairs = []
