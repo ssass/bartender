@@ -52,6 +52,7 @@ for record in SeqIO.parse(handle, "fasta"):
     cmd = config.p3_path + " -format_output -p3_settings_file=" + config.p3_config_path
     args = shlex.split(cmd)
     p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    p3_output = p.communicate(input_string)
-    print record.id + " " + str(p3_output[2])
+    p.communicate(input_string)
+    p3_output = p.communicate()
+    print record.id + " " + str(p3_output[1])
 handle.close()
