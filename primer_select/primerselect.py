@@ -22,13 +22,13 @@ for record in SeqIO.parse(handle, "fasta"):
     f.write("SEQUENCE_ID=" + record.id + "\n")
     f.write("SEQUENCE_TEMPLATE=" + sequence + "\n")
 
-    # target_start = sequence.find("\[")
-    # target_end = sequence.find("\]")
-    # target_length = target_end - target_start - 1
+    target_start = sequence.find("\[")
+    target_end = sequence.find("\]")
+    target_length = target_end - target_start - 1
     # print str(target_start) + "\n"
     # print target_length
     #
-    # print "SEQUENCE_TARGET=" + target_start + "," + target_length
+    print "SEQUENCE_TARGET=" + str(target_start) + "," + str(target_length)
 
   # exclude.start=regexpr("<",act.seq.ann,fixed=T)[1]
   # exclude.length=regexpr(">",act.seq.ann,fixed=T)[1]-exclude.start-1
