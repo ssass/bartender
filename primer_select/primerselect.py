@@ -24,14 +24,15 @@ for record in SeqIO.parse(handle, "fasta"):
     target_end = sequence.find("]")
     target_length = target_end - target_start - 1
 
+    sequence = sequence.replace("[", "")
+    sequence = sequence.replace("]", "")
+
     exclude_start = sequence.find("<")
     exclude_end = sequence.find(">")
     exclude_length = exclude_end - exclude_start - 1
 
-    sequence.replace("[", "")
-    sequence.replace("]", "")
-    sequence.replace("<", "")
-    sequence.replace(">", "")
+    sequence = sequence.replace("<", "")
+    sequence = sequence.replace(">", "")
 
     input_string = ""
     input_string += "SEQUENCE_ID=" + record.id + "\n"
