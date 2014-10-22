@@ -58,8 +58,7 @@ for record in SeqIO.parse(handle, "fasta"):
     primer_pairs = []
     for p3o in p3_output:
         p3_pairs = p3o.strip().split("\t")
-        print str(p3_pairs) + "\n"
-        #primer_pairs.append(PrimerPair(p3_pairs[0], p3_pairs[1]))
+        primer_pairs.append(PrimerPair(p3_pairs[0], p3_pairs[1]))
 
     primer_set.append(primer_pairs)
 handle.close()
