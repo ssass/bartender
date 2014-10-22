@@ -26,7 +26,7 @@ for record in SeqIO.parse(handle, "fasta"):
     cmd = config.p3_path + " -format_output -p3_settings_file=" + config.p3_config_path+ " -output=" + record.id + "_p3.txt "+ p3file
     print cmd
     args = shlex.split(cmd)
-    p = subprocess.Popen(args)
+    p = subprocess.Popen(cmd,shell=True)
     #p.wait()
 handle.close()
 
