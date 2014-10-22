@@ -53,6 +53,6 @@ for record in SeqIO.parse(handle, "fasta"):
     args = shlex.split(cmd)
     p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     p3_output = p.communicate(input_string)
-    print p3_output
+    print p3_output[1]
     #print record.id + " " + str(p3_output[1])
 handle.close()
