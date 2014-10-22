@@ -53,10 +53,11 @@ for record in SeqIO.parse(handle, "fasta"):
     cmd = config.p3_path + " -format_output -p3_settings_file=" + config.p3_config_path
     args = shlex.split(cmd)
     p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    p3_output = p.communicate(input_string)[0].strip().split("\n")
+    p3_output = p.communicate(input_string)[0].strip()
 
     print record.id + " " + str(p3_output[0]) + "\n"
 
+    p3_output = p3_output.split("\n")
     primer_pairs = []
     for p3o in p3_output:
         p3_pairs = p3o.strip().split("\t")
