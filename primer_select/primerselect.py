@@ -1,6 +1,7 @@
 import argparse
 import shlex
 import subprocess
+import time
 from primer_select.ps_configuration import PsConfigurationHandler
 import csv
 
@@ -43,6 +44,6 @@ for record in SeqIO.parse(handle, "fasta"):
     print cmd
     args = shlex.split(cmd)
     p = subprocess.Popen(args)
-    p.wait()
+    time.wait(10)
 handle.close()
 
