@@ -2,6 +2,7 @@ import argparse
 import shlex
 import subprocess
 import time
+from primer_select.primerpair import PrimerPair
 from primer_select.ps_configuration import PsConfigurationHandler
 import csv
 
@@ -52,6 +53,12 @@ for record in SeqIO.parse(handle, "fasta"):
     cmd = config.p3_path + " -format_output -p3_settings_file=" + config.p3_config_path
     args = shlex.split(cmd)
     p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    p3_output = p.communicate(input_string)
-    print record.id + " " + str(p3_output[0])
+    p3_output = p.communicate(input_string)[0].split(sep="\n")
+
+    primer_pairs = []
+    for p3o in p3_output:
+        p3_pairs = p3o.split("\t")
+        primer_pairs.append(PrimerPair(p3_pairs[0], p3_pairs[1]))
+
+    print primer_pairs
 handle.close()
