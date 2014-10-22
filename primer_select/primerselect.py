@@ -23,10 +23,10 @@ for record in SeqIO.parse(handle, "fasta"):
     f.write("PRIMER_THERMODYNAMIC_PARAMETERS_PATH=" + config.p3_thermo_path + "\n=")
 
     #print cmd
-    cmd = config.p3_path + " -format_output -p3_settings_file=" + config.p3_config_path+ " -output=" + record.id + "_p3.txt "+ p3file
+    cmd = config.p3_path + " -format_output -p3_settings_file=" + config.p3_config_path+ " -output=/home/icb/steffen.sass/bartender/" + record.id + "_p3.txt /home/icb/steffen.sass/bartender/"+ p3file
     print cmd
     args = shlex.split(cmd)
-    p = subprocess.call(cmd, shell=True)
+    p = subprocess.Popen(args)
     #p.wait()
 handle.close()
 
