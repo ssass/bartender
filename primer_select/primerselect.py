@@ -42,7 +42,7 @@ for record in SeqIO.parse(handle, "fasta"):
         input_string += "SEQUENCE_TARGET=" + str(target_start) + "," + str(target_length) + "\n"
 
     if target_start >= 0 & target_length >= 0:
-        input_string += "SEQUENCE_EXCLUDED_REGION=" + str(exclude_start) + "," + str(exclude_length) + "\n"
+        input_string += "SEQUENCE_EXCLUDED_REGION=" + str(exclude_start + 1) + "," + str(exclude_length) + "\n"
 
     input_string += "P3_FILE_FLAG=1\n"
     input_string += "PRIMER_THERMODYNAMIC_PARAMETERS_PATH=" + config.p3_thermo_path + "\n="
