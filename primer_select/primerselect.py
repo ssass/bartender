@@ -54,5 +54,4 @@ for record in SeqIO.parse(handle, "fasta"):
     p = subprocess.Popen(args, stdin=subprocess.PIPE)
     p.communicate(input_string)
     p.wait()
-    print p.communicate()[1][2]
 handle.close()
