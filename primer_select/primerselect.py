@@ -48,4 +48,4 @@ for record in SeqIO.parse(handle, "fasta"):
     p = subprocess.Popen(args)
     #time.sleep(10)
 handle.close()
-
+time.sleep(5)
