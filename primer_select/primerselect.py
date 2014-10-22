@@ -43,6 +43,6 @@ for record in SeqIO.parse(handle, "fasta"):
     print cmd
     args = shlex.split(cmd)
     p = subprocess.Popen(args)
-    #p.wait()
+    p.wait()
 handle.close()
 
