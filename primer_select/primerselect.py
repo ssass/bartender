@@ -20,23 +20,25 @@ for record in SeqIO.parse(handle, "fasta"):
     sequence = str(record.seq)
     p3file = record.id + "_seq.txt"
 
-    input_string = ""
-    #f = open(p3file, 'w')
-    input_string += "SEQUENCE_ID=" + record.id + "\n"
-    input_string += "SEQUENCE_TEMPLATE=" + sequence + "\n"
-
     target_start = sequence.find("[")
     target_end = sequence.find("]")
     target_length = target_end - target_start - 1
-    sequence.replace("[", "")
-    sequence.replace("]", "")
-
-    if target_start >= 0 & target_length >= 0:
-        input_string += "SEQUENCE_TARGET=" + str(target_start) + "," + str(target_length) + "\n"
 
     exclude_start = sequence.find("<")
     exclude_end = sequence.find(">")
     exclude_length = exclude_end - exclude_start - 1
+
+    sequence.replace("[", "")
+    sequence.replace("]", "")
+    sequence.replace("<", "")
+    sequence.replace(">", "")
+
+    input_string = ""
+    input_string += "SEQUENCE_ID=" + record.id + "\n"
+    input_string += "SEQUENCE_TEMPLATE=" + sequence + "\n"
+
+    if target_start >= 0 & target_length >= 0:
+        input_string += "SEQUENCE_TARGET=" + str(target_start) + "," + str(target_length) + "\n"
 
     if target_start >= 0 & target_length >= 0:
         input_string += "SEQUENCE_EXCLUDED_REGION=" + str(exclude_start) + "," + str(exclude_length) + "\n"
