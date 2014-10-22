@@ -47,11 +47,12 @@ for record in SeqIO.parse(handle, "fasta"):
     input_string += "P3_FILE_FLAG=1\n"
     input_string += "PRIMER_THERMODYNAMIC_PARAMETERS_PATH=" + config.p3_thermo_path + "\n="
 
-    print input_string + "\n"
+    #print input_string + "\n"
 
-    cmd = config.p3_path + " -format_output -p3_settings_file=" + config.p3_config_path + " -output=" + record.id + "_p3.txt"
+    cmd = config.p3_path + " -format_output -p3_settings_file=" + config.p3_config_path
     args = shlex.split(cmd)
     p = subprocess.Popen(args, stdin=subprocess.PIPE)
     p.communicate(input_string)
     p.wait()
+    print p.communicate()
 handle.close()
