@@ -23,6 +23,6 @@ for record in SeqIO.parse(handle, "fasta"):
     cmd = [config.p3_path, "-format_output", "-p3_settings_file=" + config.p3_config_path, "-output=" + record.id + "_p3.txt", p3file]
     print cmd
     p = subprocess.Popen(cmd)
-    #p.wait()
+    p.wait()
 handle.close()
 
