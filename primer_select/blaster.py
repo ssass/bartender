@@ -21,8 +21,8 @@ class Blaster:
 
         for primer_set in primer_sets:
             for pair in primer_set.set:
-                fwd_string += ">" + set.name + "\n" + pair.fwd + "\n\n"
-                rev_string += ">" + set.name + "\n" + pair.rev + "\n\n"
+                fwd_string += ">" + primer_set.name + "\n" + pair.fwd + "\n\n"
+                rev_string += ">" + primer_set.name + "\n" + pair.rev + "\n\n"
 
         cmd = self.config.blast_path + " -p blastn -m 8 -d " + self.config.blast_dbpath
         args = shlex.split(cmd)
