@@ -29,12 +29,12 @@ class Blaster:
 
             p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
             blast_output = p.communicate(blast_string)[0].strip()
-            print(blast_output)
+            # print(blast_output)
             blast_output = blast_output.split("\n")
             blast_hits = []
             for line in blast_output:
                 act_result = line.strip().split("\t")
-                if float(act_result[10]) < 0.01:
+                if float(act_result[10]) < 0.1:
                     blast_hits.append(act_result[0])
 
             for pair in primer_set.set:
