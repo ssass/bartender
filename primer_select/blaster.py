@@ -1,4 +1,5 @@
 __author__ = 'Steffen'
+from __future__ import print_function
 from Bio import SeqIO
 import shlex
 import subprocess
@@ -17,16 +18,16 @@ class Blaster:
 
         num_hits = []
 
+        cmd = self.config.blast_path + " -p blastn -m 8 -d " + self.config.blast_dbpath
+        args = shlex.split(cmd)
+
         for primer_set in primer_sets:
             fwd_string = ""
             rev_string = ""
             for pair in primer_set.set:
                 fwd_string += ">" + pair.name + "\n" + pair.fwd + "\n\n"
                 rev_string += ">" + pair.name + "\n" + pair.rev + "\n\n"
-
-        cmd = self.config.blast_path + " -p blastn -m 8 -d " + self.config.blast_dbpath
-        args = shlex.split(cmd)
-        # p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-        # blast_output = p.communicate(fwd_string)[0].strip()
-        print fwd_string
+                p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+                blast_output = p.communicate(fwd_string)[0].strip()
+                print(blast_output)
         return primer_set
