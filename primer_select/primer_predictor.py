@@ -51,8 +51,6 @@ class PrimerPredictor:
             p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
             p3_output = p.communicate(input_string)[0].strip()
 
-            print record.id + " " + str(p3_output) + "\n"
-
             p3_output = p3_output.split("\n")
             primer_set = PrimerSet(record.id)
             for i in xrange(0, len(p3_output)):

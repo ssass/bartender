@@ -21,12 +21,22 @@ class Blaster:
         args = shlex.split(cmd)
 
         for primer_set in primer_sets:
-            fwd_string = ""
-            rev_string = ""
+            blast_string = ""
             for pair in primer_set.set:
-                fwd_string += ">" + pair.name + "\n" + pair.fwd + "\n\n"
-                rev_string += ">" + pair.name + "\n" + pair.rev + "\n\n"
-                p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-                blast_output = p.communicate(fwd_string)[0].strip()
-                print(blast_output)
-        return primer_set
+                blast_string += ">" + pair.name + "_fwd\n" + pair.fwd + "\n\n"
+                blast_string += ">" + pair.name + "_rev\n" + pair.rev + "\n\n"
+
+            p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+            blast_output = p.communicate(blast_string)[0].strip()
+            blast_output = blast_output.split("\n")
+            blast_hits = []
+            for line in blast_output:
+                act_result = line.strip().split("\t")
+                if act_result < 0.01:
+                    blast_hits.append(act_result[0])
+
+            for pair in primer_set.set:
+                pair.blast_hits[0] = blast_hits.count(pair.name + "_fwd")
+                pair.blast_hits[1] = blast_hits.count(pair.name + "_rev")
+
+        return primer_sets
