@@ -29,6 +29,7 @@ class Blaster:
 
             p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
             blast_output = p.communicate(blast_string)[0].strip()
+            print(blast_output)
             blast_output = blast_output.split("\n")
             blast_hits = []
             for line in blast_output:
