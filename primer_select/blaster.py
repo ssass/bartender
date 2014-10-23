@@ -21,7 +21,7 @@ class Blaster:
         args = shlex.split(cmd)
 
         for primer_set in primer_sets:
-            print("Blasting primer ", primer_set.name, "...\n")
+            print("Blasting primer", primer_set.name, "...")
             blast_string = ""
             for pair in primer_set.set:
                 blast_string += ">" + pair.name + "_fwd\n" + pair.fwd + "\n\n"

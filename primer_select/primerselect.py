@@ -1,3 +1,4 @@
+from __future__ import print_function
 import argparse
 from primer_select.blaster import Blaster
 from primer_select.primer_predictor import PrimerPredictor
@@ -20,5 +21,5 @@ blaster.blast_primer_set(primer_sets)
 for primer_set in primer_sets:
     print(primer_set.name, "\n")
     for pair in primer_set.set:
-        print(pair.name, "\t", pair.blast_hits[0], "/", pair.blast_hits[1], "\n")
+        print (pair.name, "\t", pair.blast_hits[0], "/", pair.blast_hits[1])
     print("\n")
