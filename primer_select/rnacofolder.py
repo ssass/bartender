@@ -24,5 +24,10 @@ class Cofolder:
                         cofold_string += ">" + pair1.name + "_rev" + "&" + pair2.name +"_fwd" + "\n"
                         cofold_string += pair1.rev + "&" + pair2.fwd + "\n"
 
-        print(cofold_string)
+        cmd = self.config.rnacf_path + " -noPS"
+        args = shlex.split(cmd)
+
+        p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        rnac_output = p.communicate(cofold_string)[0].strip()
+        print(rnac_output)
         return primer_sets
