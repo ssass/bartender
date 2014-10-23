@@ -12,7 +12,7 @@ class Cofolder:
 
         cofold_string = ""
         for i in xrange(0, len(primer_sets)):
-            for j in xrange(i, len(primer_sets)):
+            for j in xrange(i+1, len(primer_sets)):
                 for pair1 in primer_sets[i].set:
                     for pair2 in primer_sets[j].set:
                         cofold_string += ">" + pair1.name + "_fwd" + "&" + pair2.name +"_fwd" + "\n"
