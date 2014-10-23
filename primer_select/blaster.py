@@ -28,5 +28,5 @@ class PrimerPredictor:
         args = shlex.split(cmd)
         p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         blast_output = p.communicate(fwd_string)[0].strip()
-
+        print blast_output
         return primer_set
