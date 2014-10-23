@@ -33,7 +33,7 @@ class Blaster:
             blast_hits = []
             for line in blast_output:
                 act_result = line.strip().split("\t")
-                if act_result[10] < 0.01:
+                if float(act_result[10]) < 0.01:
                     blast_hits.append(act_result[0])
 
             for pair in primer_set.set:
