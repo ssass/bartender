@@ -55,9 +55,10 @@ class PrimerPredictor:
 
             p3_output = p3_output.split("\n")
             primer_set = PrimerSet(record.id)
-            for p3o in p3_output:
+            for i in xrange(0, len(p3_output)):
+                p3o = p3_output[i]
                 p3_pairs = p3o.strip().split("\t")
-                primer_set.append(PrimerPair(p3_pairs[0], p3_pairs[1]))
+                primer_set.append(PrimerPair(p3_pairs[0], p3_pairs[1],record.id + "_" + i))
 
             primer_sets.append(primer_set)
         handle.close()

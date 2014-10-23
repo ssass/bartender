@@ -8,7 +8,8 @@ class PrimerSet:
 
 
 class PrimerPair:
-    def __init__(self, fwd, rev):
+    def __init__(self, fwd, rev, name):
         self.fwd = fwd
         self.rev = rev
+        self.name = name
         self.blast_hits  = [0, 0]
