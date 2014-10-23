@@ -4,7 +4,7 @@ class PrimerSet:
         self.set = []
 
     def __len__(self):
-        len(self.set)
+        return len(self.set)
 
     def append(self, primer_pair):
         self.set.append(primer_pair)
