@@ -3,6 +3,7 @@ import argparse
 from primer_select.blaster import Blaster
 from primer_select.primer_predictor import PrimerPredictor
 from primer_select.ps_configuration import PsConfigurationHandler
+from primer_select.rnacofolder import Cofolder
 
 parser = argparse.ArgumentParser(description='Run the PrimerSelect pipeline.')
 
@@ -18,8 +19,11 @@ primer_sets = primer_predictor.predict_primer_set()
 blaster = Blaster(config, args.input)
 blaster.blast_primer_set(primer_sets)
 
-for primer_set in primer_sets:
-    print(primer_set.name, "\n")
-    for pair in primer_set.set:
-        print (pair.name, "\t", pair.blast_hits[0], "/", pair.blast_hits[1])
-    print("\n")
+# for primer_set in primer_sets:
+#     print(primer_set.name, "\n")
+#     for pair in primer_set.set:
+#         print (pair.name, "\t", pair.blast_hits[0], "/", pair.blast_hits[1])
+#     print("\n")
+
+cofolder = Cofolder(config, args.input)
+cofolder.cofold(primer_sets)
