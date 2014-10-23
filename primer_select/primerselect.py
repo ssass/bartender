@@ -1,4 +1,5 @@
 import argparse
+from primer_select.blaster import Blaster
 from primer_select.primer_predictor import PrimerPredictor
 from primer_select.ps_configuration import PsConfigurationHandler
 
@@ -13,3 +14,5 @@ config = ch.read_config()
 primer_predictor = PrimerPredictor(config, args.input)
 primer_sets = primer_predictor.predict_primer_set()
 
+blaster = Blaster(config, args.input)
+blaster.blast_primer_set(primer_sets)

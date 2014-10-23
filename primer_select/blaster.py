@@ -7,7 +7,7 @@ from Bio.SeqRecord import SeqRecord
 from Bio.Alphabet import IUPAC
 from Bio.Seq import Seq
 
-class PrimerPredictor:
+class Blaster:
 
     def __init__(self, config, fasta_file):
         self.config = config
