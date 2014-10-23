@@ -1,4 +1,3 @@
-__author__ = 'Steffen'
 from __future__ import print_function
 from Bio import SeqIO
 import shlex
