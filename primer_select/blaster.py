@@ -20,15 +20,20 @@ class Blaster:
         cmd = self.config.blast_path + " -p blastn -m 8 -d " + self.config.blast_dbpath
         args = shlex.split(cmd)
 
+        processes = []
         for primer_set in primer_sets:
+            processes.append(subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE))
+
+        for i in xrange(0, len(primer_set)):
+
+            primer_set = primer_sets[i]
             print("Blasting primer", primer_set.name, "...")
             blast_string = ""
             for pair in primer_set.set:
                 blast_string += ">" + pair.name + "_fwd\n" + pair.fwd + "\n\n"
                 blast_string += ">" + pair.name + "_rev\n" + pair.rev + "\n\n"
 
-            p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-            blast_output = p.communicate(blast_string)[0].strip()
+            blast_output = processes[i].communicate(blast_string)[0].strip()
             # print(blast_output)
             blast_output = blast_output.split("\n")
             blast_hits = []
