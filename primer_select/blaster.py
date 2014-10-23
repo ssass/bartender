@@ -21,6 +21,7 @@ class Blaster:
         args = shlex.split(cmd)
 
         for primer_set in primer_sets:
+            print("Blasting primer ", primer_set.name, "...\n")
             blast_string = ""
             for pair in primer_set.set:
                 blast_string += ">" + pair.name + "_fwd\n" + pair.fwd + "\n\n"
@@ -32,7 +33,7 @@ class Blaster:
             blast_hits = []
             for line in blast_output:
                 act_result = line.strip().split("\t")
-                if act_result < 0.01:
+                if act_result[10] < 0.01:
                     blast_hits.append(act_result[0])
 
             for pair in primer_set.set:
