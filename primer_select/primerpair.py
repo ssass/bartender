@@ -3,6 +3,9 @@ class PrimerSet:
         self.name = name
         self.set = []
 
+    def __len__(self):
+        len(self.set)
+
     def append(self, primer_pair):
         self.set.append(primer_pair)
 
