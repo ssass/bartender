@@ -8,7 +8,7 @@ class PsConfigurationHandler(ConfigurationHandler):
 
         """
         config = ConfigParser.RawConfigParser()
-        config.set('DEFAULT', 'workingDir', '')
+        config.set('DEFAULT', 'threads', '1')
 
         config.add_section('Primer3')
         config.set('Primer3', 'path', '/usr/local/bin/primer3_core')
@@ -38,7 +38,7 @@ class PsConfigurationHandler(ConfigurationHandler):
         config = ConfigParser.RawConfigParser()
         config.read(self.path)
         c = Configuration()
-        c.wd = config.get('DEFAULT', 'workingDir')
+        c.threads = config.getint('DEFAULT', 'threads')
         c.p3_path = config.get('Primer3', 'path')
         c.p3_config_path = config.get('Primer3', 'configPath')
         c.p3_thermo_path = config.get('Primer3', 'thermoParamPath')

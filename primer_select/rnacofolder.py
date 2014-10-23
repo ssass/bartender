@@ -16,13 +16,13 @@ class Cofolder:
                 for pair1 in primer_sets[i].set:
                     for pair2 in primer_sets[j].set:
                         cofold_string += ">" + pair1.name + "_fwd" + "&" + pair2.name +"_fwd" + "\n"
-                        cofold_string += pair1.fwd + + "&" + pair2.fwd + "\n"
+                        cofold_string += pair1.fwd + "&" + pair2.fwd + "\n"
                         cofold_string += ">" + pair1.name + "_rev" + "&" + pair2.name +"_rev" + "\n"
-                        cofold_string += pair1.rev + + "&" + pair2.rev + "\n"
+                        cofold_string += pair1.rev + "&" + pair2.rev + "\n"
                         cofold_string += ">" + pair1.name + "_fwd" + "&" + pair2.name +"_rev" + "\n"
-                        cofold_string += pair1.fwd + + "&" + pair2.rev + "\n"
+                        cofold_string += pair1.fwd + "&" + pair2.rev + "\n"
                         cofold_string += ">" + pair1.name + "_rev" + "&" + pair2.name +"_fwd" + "\n"
-                        cofold_string += pair1.rev + + "&" + pair2.fwd + "\n"
+                        cofold_string += pair1.rev + "&" + pair2.fwd + "\n"
 
         print(cofold_string)
         return primer_sets
