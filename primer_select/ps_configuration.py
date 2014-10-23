@@ -17,6 +17,7 @@ class PsConfigurationHandler(ConfigurationHandler):
 
         config.add_section('BLAST')
         config.set('BLAST', 'path', '')
+        config.set('BLAST', 'db', '')
         config.set('BLAST', 'maxHits', 5)
 
         config.add_section('RNAcofold')
@@ -43,6 +44,7 @@ class PsConfigurationHandler(ConfigurationHandler):
         c.p3_thermo_path = config.get('Primer3', 'thermoParamPath')
 
         c.blast_path = config.get('BLAST', 'path')
+        c.blast_dbpath = config.get('BLAST', 'db')
         c.blast_max_hits = config.getint('BLAST', 'maxHits')
 
         c.rnacf_path = config.get('RNAcofold', 'path')
