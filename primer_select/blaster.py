@@ -41,6 +41,7 @@ class Blaster:
         for primer_set in primer_sets:
             processes.append(Process(target=self.run_process, args=(primer_set,args, )))
 
+        # start parallel BLAST processes and ensure that the number of threads does not exceed the maximum
         active_processes = []
         while len(processes) > 0:
 
@@ -52,8 +53,6 @@ class Blaster:
             for ap in active_processes:
                 if not ap.is_alive():
                     active_processes.remove(ap)
-
-            print (len(active_processes), len(processes))
 
         for p in active_processes:
             p.join()
