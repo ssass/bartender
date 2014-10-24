@@ -1,6 +1,6 @@
 from __future__ import print_function
 from multiprocessing import Process
-from Bio import SeqIO
+from collections import deque
 import shlex
 import subprocess
 
@@ -37,9 +37,25 @@ class Blaster:
         cmd = self.config.blast_path + " -p blastn -m 8 -d " + self.config.blast_dbpath
         args = shlex.split(cmd)
 
-        processes = []
+        processes = deque()
         for primer_set in primer_sets:
             processes.append(Process(target=self.run_process, args=(primer_set,args, )))
+
+        active_processes = 0
+        while len(processes) > 0:
+            p = processes.popleft()
+            if active_processes < self.config.threads:
+                p.start()
+                active_processes += 1
+
+            active_processes = 0
+            for p in processes:
+                if p.is_alive():
+                    ++active_processes
+
+            print (active_processes, len(processes))
+
+
 
         for p in processes:
             p.start()
