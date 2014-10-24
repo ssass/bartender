@@ -56,13 +56,17 @@ class Cofolder:
                     mfe_list[pair_index].append([])
 
                     for pair_index2, pair2 in enumerate(primer_sets[j].set):
-                        if i < j:
-                            pos = positions[pair1.name + "&" + pair2.name]
-                        else:
-                            pos = positions[pair2.name + "&" + pair1.name]
+                        if i == 1:
+                            mfe_list[pair_index][pair_index2] = 0
 
-                        mfe = self.get_mfe(rnac_output, pos)
-                        mfe_list[pair_index][pair_index2] = mfe
+                        else:
+                            if i < j:
+                                pos = positions[pair1.name + "&" + pair2.name]
+                            else:
+                                pos = positions[pair2.name + "&" + pair1.name]
+
+                            mfe = self.get_mfe(rnac_output, pos)
+                            mfe_list[pair_index][pair_index2] = mfe
 
             primer_sets[i].mfes = mfe_list
 
