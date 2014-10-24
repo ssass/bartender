@@ -41,17 +41,17 @@ class Blaster:
         for primer_set in primer_sets:
             processes.append(Process(target=self.run_process, args=(primer_set,args, )))
 
-        active_processes = 0
+        active_processes = []
         while len(processes) > 0:
-            p = processes.popleft()
-            if active_processes < self.config.threads:
-                p.start()
-                active_processes += 1
 
-            active_processes = 0
-            for p in processes:
-                if p.is_alive():
-                    ++active_processes
+            if len(active_processes) < self.config.threads:
+                p = processes.popleft()
+                p.start()
+                active_processes.append(p)
+
+            for ap in active_processes:
+                if not ap.is_alive():
+                    active_processes.remove(ap)
 
             print (active_processes, len(processes))
 
