@@ -48,7 +48,7 @@ class Optimizer:
 
             j = random.randint(0, len(v))
 
-            for k in random.randint(0, set_lengths[j]) :
+            for k in random.sample(xrange(0, set_lengths[j]), set_lengths[j]):
                 v_temp = v
                 v_temp[j] = k
                 if self.f(v_temp) <= self.f(v):
