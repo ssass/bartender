@@ -45,7 +45,7 @@ class Blaster:
         active_processes = []
         while len(processes) > 0:
 
-            if len(active_processes) < self.config.threads:
+            if len(active_processes) < self.config.max_threads:
                 p = processes.popleft()
                 p.start()
                 active_processes.append(p)

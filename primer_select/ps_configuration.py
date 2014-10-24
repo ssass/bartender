@@ -38,7 +38,7 @@ class PsConfigurationHandler(ConfigurationHandler):
         config = ConfigParser.RawConfigParser()
         config.read(self.path)
         c = Configuration()
-        c.threads = config.getint('DEFAULT', 'threads')
+        c.max_threads = config.getint('DEFAULT', 'threads')
         c.p3_path = config.get('Primer3', 'path')
         c.p3_config_path = config.get('Primer3', 'configPath')
         c.p3_thermo_path = config.get('Primer3', 'thermoParamPath')
