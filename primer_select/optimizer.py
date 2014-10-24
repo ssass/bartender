@@ -15,7 +15,7 @@ class Optimizer:
         self.config = config
         self.primer_sets = primer_sets
 
-    def f(self, mfes, selected_pairs):
+    def f(self, selected_pairs):
 
         sum_mfes = 0
         for seq1, pair1 in enumerate(selected_pairs):
