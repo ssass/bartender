@@ -31,3 +31,5 @@ cofolder.cofold(primer_sets)
 
 optimizer = Optimizer(config, primer_sets)
 opt_result = optimizer.optimize()
+
+print(opt_result.sum_mfe)

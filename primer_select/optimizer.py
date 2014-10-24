@@ -13,7 +13,7 @@ class Optimizer:
 
     def __init__(self, config, primer_sets):
         self.config = config
-        self.primer_sets
+        self.primer_sets = primer_sets
 
     def f(self, mfes, selected_pairs):
 
