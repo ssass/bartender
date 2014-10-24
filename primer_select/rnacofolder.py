@@ -36,6 +36,6 @@ class Cofolder:
         rnac_output = p.communicate(cofold_string)[0].strip()
 
         for pos in positions:
-            print(pos)
+            print(pos, positions[pos])
 
         return primer_sets
