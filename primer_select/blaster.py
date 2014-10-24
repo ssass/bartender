@@ -53,13 +53,9 @@ class Blaster:
                 if not ap.is_alive():
                     active_processes.remove(ap)
 
-            print (active_processes, len(processes))
+            print (len(active_processes), len(processes))
 
-
-
-        for p in processes:
-            p.start()
-        for p in processes:
+        for p in active_processes:
             p.join()
 
         return primer_sets
