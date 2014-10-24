@@ -13,6 +13,7 @@ class Cofolder:
 
         mfes = []
         for i in xrange(2, 12, 3):
+            print(rnac_output[pos+i])
             m = re.search('-\d+[.]\d+', rnac_output[pos+i])
             mfes.append(float(m.group(0)))
 
@@ -41,6 +42,8 @@ class Cofolder:
 
         cmd = self.config.rnacf_path + " -noPS"
         args = shlex.split(cmd)
+
+        print("\nRunning cofold prediction...")
 
         p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         rnac_output = p.communicate(cofold_string)[0].strip()
