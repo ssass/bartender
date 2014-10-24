@@ -53,7 +53,6 @@ class Cofolder:
             for pair_index, pair1 in enumerate(primer_sets[i].set):
                 mfe_list.append([])
                 for j in xrange(0, len(primer_sets)):
-                    mfe_list[pair_index].append([])
 
                     for pair_index2, pair2 in enumerate(primer_sets[j].set):
                         if i == j:
