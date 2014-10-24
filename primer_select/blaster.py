@@ -19,7 +19,6 @@ class Blaster:
 
         p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         blast_output = p.communicate(blast_string)[0].strip()
-        # print(blast_output)
         blast_output = blast_output.split("\n")
         blast_hits = []
         for line in blast_output:
@@ -31,17 +30,16 @@ class Blaster:
             pair.blast_hits[0] = blast_hits.count(pair.name + "_fwd")
             pair.blast_hits[1] = blast_hits.count(pair.name + "_rev")
 
-
     def blast_primer_set(self, primer_sets):
 
         cmd = self.config.blast_path + " -p blastn -m 8 -d " + self.config.blast_dbpath
         args = shlex.split(cmd)
 
+        # start parallel BLAST processes and ensure that the number of threads does not exceed the maximum
         processes = deque()
         for primer_set in primer_sets:
             processes.append(Process(target=self.run_process, args=(primer_set,args, )))
 
-        # start parallel BLAST processes and ensure that the number of threads does not exceed the maximum
         active_processes = []
         while len(processes) > 0:
 
@@ -54,7 +52,6 @@ class Blaster:
                 if not ap.is_alive():
                     active_processes.remove(ap)
 
+        # wait until all processes have finished
         for p in active_processes:
             p.join()
-
-        return primer_sets
