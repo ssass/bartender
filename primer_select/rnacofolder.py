@@ -51,12 +51,12 @@ class Cofolder:
         for i in xrange(0, len(primer_sets)):
             mfe_list = []
             for j in xrange(i + 1, len(primer_sets)):
-                mfe_sublist = []
                 for pair1 in primer_sets[i].set:
+                    mfe_sublist = []
                     for pair2 in primer_sets[j].set:
                         pos = positions[pair1.name + "&" + pair2.name]
                         mfe_sublist.append(self.get_mfe(rnac_output, pos))
-                mfe_list.append(mfe_sublist)
+                    mfe_list.append(mfe_sublist)
             primer_sets[i].mfes = mfe_list
 
         print(primer_sets[0].mfes)
