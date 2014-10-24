@@ -56,7 +56,7 @@ class Cofolder:
                     mfe_list[pair_index].append([])
 
                     for pair_index2, pair2 in enumerate(primer_sets[j].set):
-                        if i == 1:
+                        if i == j:
                             mfe_list[pair_index][pair_index2] = 0
 
                         else:
