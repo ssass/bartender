@@ -13,8 +13,7 @@ class Cofolder:
 
         mfes = []
         for i in xrange(2, 12, 3):
-            print(rnac_output[pos+i])
-            m = re.search('-\d+[.]\d+', rnac_output[pos+i])
+            m = re.search('-{0,1}\d+[.]\d+', rnac_output[pos+i])
             mfes.append(float(m.group(0)))
 
         return min(mfes)
