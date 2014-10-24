@@ -8,8 +8,6 @@ class Cofolder:
         self.config = config
         self.input = fasta_file
 
-    def
-
     def cofold(self, primer_sets):
 
         cofold_string = ""
