@@ -1,0 +1,56 @@
+from __future__ import print_function
+import random
+import math
+
+
+class Optimizer:
+
+    def __init__(self, config, fasta_file, primer_sets):
+        self.config = config
+        self.input = fasta_file
+        self.primer_sets
+
+    def f(self, mfes, selected_pairs):
+
+        sum_mfes = 0
+        for seq1, pair1 in enumerate(selected_pairs):
+            for seq2, pair2 in enumerate(selected_pairs):
+                sum_mfes += self.primer_sets[seq1].mfes[pair1][seq2][pair2]
+        return sum_mfes / 2
+
+
+    def optimize(self):
+
+        max_ind = self.config.opt_steps
+        max_temperature = min(15, self.config.opt_max_temp)
+
+        set_lengths = []
+        for pset in self.primer_sets:
+            set_lengths.append(random.randint(0, len(pset)))
+
+        combinations = []
+        act_temperature = max_temperature
+
+        mfe_sum = []
+        v = []
+        for i, pset in self.primer_sets:
+            v.append(set_lengths[i])
+
+        temp_steps = math.floor(max_ind/(max_temperature+1))
+
+        for i in xrange(1, max_ind):
+            if i % temp_steps == 0 & act_temperature != 0:
+                --act_temperature
+
+            j = random.randint(0, len(v))
+
+            for k in random.randint(0, set_lengths[j]) :
+                v_temp = v
+                v_temp[j] = k
+                if self.f(v_temp) <= self.f(v):
+                    v[j] = k
+                elif  math.exp((self.f(v)-self.f(v_temp))/act_temperature) > random.uniform(0, 1):
+                    v[j] = k
+
+            combinations.append(v)
+            mfe_sum.append(self.f(v))

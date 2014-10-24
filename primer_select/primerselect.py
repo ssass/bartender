@@ -27,3 +27,4 @@ blaster.blast_primer_set(primer_sets)
 
 cofolder = Cofolder(config, args.input)
 cofolder.cofold(primer_sets)
+
