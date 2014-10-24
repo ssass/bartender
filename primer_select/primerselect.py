@@ -1,6 +1,7 @@
 from __future__ import print_function
 import argparse
 from primer_select.blaster import Blaster
+from primer_select.optimizer import Optimizer
 from primer_select.primer_predictor import PrimerPredictor
 from primer_select.ps_configuration import PsConfigurationHandler
 from primer_select.rnacofolder import Cofolder
@@ -28,3 +29,5 @@ blaster.blast_primer_set(primer_sets)
 cofolder = Cofolder(config, args.input)
 cofolder.cofold(primer_sets)
 
+optimizer = Optimizer(config, primer_sets)
+opt_result = optimizer.optimize()

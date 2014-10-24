@@ -2,12 +2,17 @@ from __future__ import print_function
 import random
 import math
 
+class OptimizationResult:
+    def __init__(self, opt_arrangement, arrangements, sum_mfe):
+        self.opt_arrangement = opt_arrangement
+        self.arrangements = arrangements
+        self.sum_mfe = sum_mfe
+
 
 class Optimizer:
 
-    def __init__(self, config, fasta_file, primer_sets):
+    def __init__(self, config, primer_sets):
         self.config = config
-        self.input = fasta_file
         self.primer_sets
 
     def f(self, mfes, selected_pairs):
@@ -17,7 +22,6 @@ class Optimizer:
             for seq2, pair2 in enumerate(selected_pairs):
                 sum_mfes += self.primer_sets[seq1].mfes[pair1][seq2][pair2]
         return sum_mfes / 2
-
 
     def optimize(self):
 
@@ -49,8 +53,10 @@ class Optimizer:
                 v_temp[j] = k
                 if self.f(v_temp) <= self.f(v):
                     v[j] = k
-                elif  math.exp((self.f(v)-self.f(v_temp))/act_temperature) > random.uniform(0, 1):
+                elif math.exp((self.f(v)-self.f(v_temp))/act_temperature) > random.uniform(0, 1):
                     v[j] = k
 
             combinations.append(v)
             mfe_sum.append(self.f(v))
+
+        return OptimizationResult(v, combinations, mfe_sum)
