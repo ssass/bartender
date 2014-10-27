@@ -40,7 +40,8 @@ class Blaster:
         # start parallel BLAST processes and ensure that the number of threads does not exceed the maximum
         q = Queue()
         processes = deque()
-        for primer_set in primer_sets:
+        for i, primer_set in enumerate(primer_sets):
+            primer_set.index = i
             processes.append(Process(target=self.run_process, args=(primer_set, args, q, )))
 
         active_processes = []
@@ -61,6 +62,4 @@ class Blaster:
 
         while not q.empty():
             primer_set_q = q.get()
-            for primer_set in primer_sets:
-                if primer_set.name == primer_set_q.name:
-                    primer_set.set = primer_set_q.set
+            primer_set[primer_set_q.index].set = primer_set_q.set
