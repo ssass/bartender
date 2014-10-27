@@ -16,12 +16,10 @@ class Optimizer:
         self.primer_sets = primer_sets
 
     def f(self, selected_pairs):
-        print(selected_pairs)
         sum_mfes = 0
         for seq1, pair1 in enumerate(selected_pairs):
             for seq2, pair2 in enumerate(selected_pairs):
                 sum_mfes += self.primer_sets[seq1].mfes[pair1][seq2][pair2]
-                print(seq1, pair1, seq2, pair2)
         return sum_mfes / 2
 
     def optimize(self):
