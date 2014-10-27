@@ -46,7 +46,7 @@ class Optimizer:
             if i % temp_steps == 0 & act_temperature != 0:
                 --act_temperature
 
-            j = random.randint(0, len(v))
+            j = random.randint(0, len(v)-1)
 
             for k in random.sample(xrange(0, set_lengths[j]), set_lengths[j]):
                 v_temp = v
