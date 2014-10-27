@@ -47,6 +47,7 @@ class Optimizer:
                 --act_temperature
 
             j = random.randint(0, len(v)-1)
+            print(act_temperature)
 
             for k in random.sample(xrange(0, set_lengths[j]), set_lengths[j]):
                 v_temp = copy.copy(v)
@@ -56,7 +57,7 @@ class Optimizer:
                 elif math.exp((self.f(v)-self.f(v_temp))/act_temperature) > random.uniform(0, 1):
                     v[j] = k
 
-            print(v, self.f(v))
+            # print(v, self.f(v))
             combinations.append(v)
             mfe_sum.append(self.f(v))
 
