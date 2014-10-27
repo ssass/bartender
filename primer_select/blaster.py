@@ -35,23 +35,26 @@ class Blaster:
         cmd = self.config.blast_path + " -p blastn -m 8 -d " + self.config.blast_dbpath
         args = shlex.split(cmd)
 
-        # start parallel BLAST processes and ensure that the number of threads does not exceed the maximum
-        processes = deque()
         for primer_set in primer_sets:
-            processes.append(Process(target=self.run_process, args=(primer_set,args, )))
+            self.run_process(primer_set,args)
 
-        active_processes = []
-        while len(processes) > 0:
-
-            if len(active_processes) < self.config.max_threads:
-                p = processes.popleft()
-                p.start()
-                active_processes.append(p)
-
-            for ap in active_processes:
-                if not ap.is_alive():
-                    active_processes.remove(ap)
-
-        # wait until all processes have finished
-        for p in active_processes:
-            p.join()
+        # start parallel BLAST processes and ensure that the number of threads does not exceed the maximum
+        # processes = deque()
+        # for primer_set in primer_sets:
+        #     processes.append(Process(target=self.run_process, args=(primer_set,args, )))
+        #
+        # active_processes = []
+        # while len(processes) > 0:
+        #
+        #     if len(active_processes) < self.config.max_threads:
+        #         p = processes.popleft()
+        #         p.start()
+        #         active_processes.append(p)
+        #
+        #     for ap in active_processes:
+        #         if not ap.is_alive():
+        #             active_processes.remove(ap)
+        #
+        # # wait until all processes have finished
+        # for p in active_processes:
+        #     p.join()
