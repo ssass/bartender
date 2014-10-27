@@ -29,8 +29,8 @@ for primer_set in primer_sets:
 cofolder = Cofolder(config, args.input)
 cofolder.cofold(primer_sets)
 
-print(primer_sets.set[0].mfes)
-print(primer_sets.set[2].mfes)
+print(primer_sets[0].mfes)
+print(primer_sets[2].mfes)
 
 optimizer = Optimizer(config, primer_sets)
 opt_result = optimizer.optimize()
