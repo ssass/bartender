@@ -64,4 +64,5 @@ class Blaster:
 
         while not q.empty():
             primer_set = q.get()
+            print(primer_set.set[0].blast_hits)
             set_dict[primer_set.name] = primer_set
