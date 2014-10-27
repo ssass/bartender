@@ -45,7 +45,7 @@ class Optimizer:
         print(max_temperature, temp_steps, max_ind)
 
         for i in xrange(1, max_ind):
-            if i % temp_steps == 0 & act_temperature != 0:
+            if i % temp_steps == 0 and act_temperature != 0:
                 print("i=",i)
                 act_temperature += -1
 
@@ -57,7 +57,7 @@ class Optimizer:
                 v_temp[j] = k
                 if self.f(v_temp) <= self.f(v):
                     v[j] = k
-                elif math.exp((self.f(v)-self.f(v_temp))/act_temperature) > random.uniform(0, 1):
+                elif act_temperature > 0 and math.exp((self.f(v)-self.f(v_temp))/act_temperature) > random.uniform(0, 1):
                     v[j] = k
 
             print(v, self.f(v))
