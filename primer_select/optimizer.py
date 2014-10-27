@@ -44,6 +44,7 @@ class Optimizer:
 
         for i in xrange(1, max_ind):
             if i % temp_steps == 0 & act_temperature != 0:
+                print("i=",i)
                 act_temperature += -1
 
             j = random.randint(0, len(v)-1)
