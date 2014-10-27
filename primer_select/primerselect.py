@@ -26,14 +26,14 @@ for primer_set in primer_sets:
         print (pair.name, "\t", pair.blast_hits[0], "/", pair.blast_hits[1])
     print("\n")
 
-cofolder = Cofolder(config, args.input)
-cofolder.cofold(primer_sets)
-
-print(primer_sets[0].mfes)
-print(primer_sets[2].mfes)
-
-optimizer = Optimizer(config, primer_sets)
-opt_result = optimizer.optimize()
-
-print(opt_result.sum_mfe)
-print(opt_result.opt_arrangement)
+# cofolder = Cofolder(config, args.input)
+# cofolder.cofold(primer_sets)
+#
+# print(primer_sets[0].mfes)
+# print(primer_sets[2].mfes)
+#
+# optimizer = Optimizer(config, primer_sets)
+# opt_result = optimizer.optimize()
+#
+# print(opt_result.sum_mfe)
+# print(opt_result.opt_arrangement)

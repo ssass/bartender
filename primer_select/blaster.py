@@ -1,5 +1,5 @@
 from __future__ import print_function
-from multiprocessing import Process
+from multiprocessing import Process, Queue
 from collections import deque
 import shlex
 import subprocess
@@ -10,7 +10,7 @@ class Blaster:
         self.config = config
         self.input = fasta_file
 
-    def run_process(self, primer_set, args):
+    def run_process(self, primer_set, args, q):
         print("Blasting primer", primer_set.name, "...")
         blast_string = ""
         for pair in primer_set.set:
@@ -30,31 +30,33 @@ class Blaster:
             pair.blast_hits[0] = blast_hits.count(pair.name + "_fwd")
             pair.blast_hits[1] = blast_hits.count(pair.name + "_rev")
 
+        q.put(primer_set)
+
     def blast_primer_set(self, primer_sets):
 
         cmd = self.config.blast_path + " -p blastn -m 8 -d " + self.config.blast_dbpath
         args = shlex.split(cmd)
 
-        for primer_set in primer_sets:
-            self.run_process(primer_set,args)
-
         # start parallel BLAST processes and ensure that the number of threads does not exceed the maximum
-        # processes = deque()
-        # for primer_set in primer_sets:
-        #     processes.append(Process(target=self.run_process, args=(primer_set,args, )))
-        #
-        # active_processes = []
-        # while len(processes) > 0:
-        #
-        #     if len(active_processes) < self.config.max_threads:
-        #         p = processes.popleft()
-        #         p.start()
-        #         active_processes.append(p)
-        #
-        #     for ap in active_processes:
-        #         if not ap.is_alive():
-        #             active_processes.remove(ap)
-        #
-        # # wait until all processes have finished
-        # for p in active_processes:
-        #     p.join()
+        q = Queue()
+        processes = deque()
+        for primer_set in primer_sets:
+            processes.append(Process(target=self.run_process, args=(primer_set, args, q, )))
+
+        active_processes = []
+        while len(processes) > 0:
+
+            if len(active_processes) < self.config.max_threads:
+                p = processes.popleft()
+                p.start()
+                active_processes.append(p)
+
+            for ap in active_processes:
+                if not ap.is_alive():
+                    active_processes.remove(ap)
+
+        # wait until all processes have finished
+        for p in active_processes:
+            p.join()
+
+        print(q.get())
