@@ -16,7 +16,7 @@ class Cofolder:
             m = re.search('-{0,1}\d+[.]\d+', rnac_output[pos+i])
             mfes.append(float(m.group(0)))
 
-        return min(mfes)
+        return max(mfes)
 
     def cofold(self, primer_sets):
 
