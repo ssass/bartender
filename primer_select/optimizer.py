@@ -30,7 +30,7 @@ class Optimizer:
 
         set_lengths = []
         for pset in self.primer_sets:
-            set_lengths.append(random.randint(0, len(pset)))
+            set_lengths.append(random.randint(0, len(pset)-1))
 
         print (set_lengths)
 
