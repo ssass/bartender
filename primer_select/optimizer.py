@@ -30,7 +30,9 @@ class Optimizer:
 
         set_lengths = []
         for pset in self.primer_sets:
-            set_lengths.append(random.randint(0, len(pset)-1))
+            set_lengths.append(random.randint(0, len(pset)))
+
+        print (set_lengths)
 
         combinations = []
         act_temperature = max_temperature
@@ -57,7 +59,7 @@ class Optimizer:
                 elif act_temperature > 0 and math.exp((self.f(v)-self.f(v_temp))/act_temperature) > random.uniform(0, 1):
                     v[j] = k
 
-
+            print("\n")
             combinations.append(v)
             mfe_sum.append(self.f(v))
 
