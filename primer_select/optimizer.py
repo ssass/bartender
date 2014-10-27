@@ -56,6 +56,7 @@ class Optimizer:
                 elif math.exp((self.f(v)-self.f(v_temp))/act_temperature) > random.uniform(0, 1):
                     v[j] = k
 
+            print(v, self.f(v))
             combinations.append(v)
             mfe_sum.append(self.f(v))
 
