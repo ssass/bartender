@@ -26,7 +26,7 @@ class Optimizer:
     def optimize(self):
 
         max_ind = self.config.opt_steps
-        max_temperature = min(15, self.config.opt_max_temp)
+        max_temperature = min(self.config.opt_max_temp, self.config.opt_steps)
 
         set_lengths = []
         for pset in self.primer_sets:
@@ -44,7 +44,7 @@ class Optimizer:
 
         for i in xrange(1, max_ind):
             if i % temp_steps == 0 & act_temperature != 0:
-                --act_temperature
+                act_temperature += -1
 
             j = random.randint(0, len(v)-1)
             print(act_temperature)

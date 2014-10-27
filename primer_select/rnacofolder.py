@@ -25,7 +25,7 @@ class Cofolder:
         positions = dict()
 
         for i in xrange(0, len(primer_sets)):
-            for j in xrange(i+1, len(primer_sets)):
+            for j in xrange(i, len(primer_sets)):
                 for pair1 in primer_sets[i].set:
                     for pair2 in primer_sets[j].set:
                         positions[pair1.name + "&" + pair2.name] = pos
@@ -55,11 +55,7 @@ class Cofolder:
                 for j in xrange(0, len(primer_sets)):
                     mfe_list[pair_index].append([])
                     for pair_index2, pair2 in enumerate(primer_sets[j].set):
-                        if i == j:
-                            mfe_list[pair_index][j].append(0)
-
-                        else:
-                            if i < j:
+                            if i <= j:
                                 pos = positions[pair1.name + "&" + pair2.name]
                             else:
                                 pos = positions[pair2.name + "&" + pair1.name]
