@@ -59,4 +59,5 @@ class Blaster:
         for p in active_processes:
             p.join()
 
-        print(len(q))
+        while not q.empty():
+            print(q.get().name)
