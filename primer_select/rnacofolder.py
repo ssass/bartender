@@ -64,7 +64,7 @@ class Cofolder:
                             else:
                                 pos = positions[pair2.name + "&" + pair1.name]
 
-                            mfe = self.get_mfe(rnac_output, pos)
+                            mfe = abs(self.get_mfe(rnac_output, pos))
                             mfe_list[pair_index][j].append(mfe)
 
             primer_sets[i].mfes = mfe_list
