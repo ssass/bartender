@@ -62,4 +62,4 @@ class Blaster:
 
         while not q.empty():
             primer_set_q = q.get()
-            primer_set[primer_set_q.index].set = primer_set_q.set
+            primer_sets[primer_set_q.index].set = primer_set_q.set
