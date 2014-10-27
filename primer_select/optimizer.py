@@ -40,7 +40,7 @@ class Optimizer:
         mfe_sum = []
         v = []
         for i, pset in enumerate(self.primer_sets):
-            v.append(random.randint(0, set_lengths[i]))
+            v.append(random.randint(0, set_lengths[i]-1))
 
         temp_steps = math.floor(max_ind/(max_temperature+1))
 
