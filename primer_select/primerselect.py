@@ -33,3 +33,4 @@ optimizer = Optimizer(config, primer_sets)
 opt_result = optimizer.optimize()
 
 print(opt_result.sum_mfe)
+print(opt_result.opt_arrangement)
