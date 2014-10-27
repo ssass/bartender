@@ -42,11 +42,8 @@ class Optimizer:
 
         temp_steps = math.floor(max_ind/(max_temperature+1))
 
-        print(max_temperature, temp_steps, max_ind)
-
         for i in xrange(1, max_ind):
             if i % temp_steps == 0 and act_temperature != 0:
-                print("i=",i)
                 act_temperature += -1
 
             j = random.randint(0, len(v)-1)
