@@ -59,4 +59,4 @@ class Blaster:
         for p in active_processes:
             p.join()
 
-        print(q.get())
+        print(len(q))
