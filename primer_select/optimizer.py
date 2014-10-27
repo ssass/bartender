@@ -1,6 +1,7 @@
 from __future__ import print_function
 import random
 import math
+import copy
 
 class OptimizationResult:
     def __init__(self, opt_arrangement, arrangements, sum_mfe):
@@ -48,7 +49,7 @@ class Optimizer:
             j = random.randint(0, len(v)-1)
 
             for k in random.sample(xrange(0, set_lengths[j]), set_lengths[j]):
-                v_temp = v
+                v_temp = copy.copy(v)
                 v_temp[j] = k
                 if self.f(v_temp) <= self.f(v):
                     v[j] = k
