@@ -34,6 +34,8 @@ class Blaster:
 
     def blast_primer_set(self, primer_sets):
 
+        set_dict = dict()
+
         cmd = self.config.blast_path + " -p blastn -m 8 -d " + self.config.blast_dbpath
         args = shlex.split(cmd)
 
@@ -41,6 +43,7 @@ class Blaster:
         q = Queue()
         processes = deque()
         for primer_set in primer_sets:
+            set_dict[primer_set.name] = primer_set
             processes.append(Process(target=self.run_process, args=(primer_set, args, q, )))
 
         active_processes = []
@@ -60,4 +63,5 @@ class Blaster:
             p.join()
 
         while not q.empty():
-            print(q.get().name)
+            primer_set = q.get()
+            set_dict[primer_set.name] = primer_set
