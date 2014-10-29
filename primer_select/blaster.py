@@ -71,9 +71,9 @@ class Blaster:
                 if pair.blast_hits[0] <= self.config.blast_max_hits and pair.blast_hits[1] <= self.config.blast_max_hits:
                     new_set.append(pair)
 
-                if len(new_set) == 0:
-                    print("No primer pair left for " + primer_set_q.name + ". Consider less restrictive BLAST settings.")
-                    sys.exit(1)
+            if len(new_set) == 0:
+                print("No primer pair left for " + primer_set_q.name + ". Consider less restrictive BLAST settings.")
+                sys.exit(1)
 
             print("\n")
 
