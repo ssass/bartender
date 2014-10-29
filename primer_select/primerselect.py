@@ -35,5 +35,6 @@ opt_result = optimizer.optimize()
 print(opt_result.sum_mfe)
 print(opt_result.opt_arrangement)
 
-for i in xrange(0,10):
+for i in xrange(0, 10):
     v = opt_result.arrangements[i]
+    print(v)
