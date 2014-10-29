@@ -64,15 +64,17 @@ class Blaster:
 
         while not q.empty():
             primer_set_q = q.get()
+            new_set = []
             for i, pair in enumerate(primer_set_q.set):
                 print(i, len(primer_set_q))
                 print(self.config.blast_max_hits, pair.blast_hits)
-                if pair.blast_hits[0] > self.config.blast_max_hits or pair.blast_hits[1] > self.config.blast_max_hits:
-                    # primer_set_q.set.remove(pair)
-                    # print(len(primer_set_q))
-                    if len(primer_set_q) == 0:
-                        print("No primer pair left for " + primer_set_q.name + ". Consider less restrictive BLAST settings.")
-                        sys.exit(1)
+                if pair.blast_hits[0] <= self.config.blast_max_hits and pair.blast_hits[1] <= self.config.blast_max_hits:
+                    new_set.append(pair)
+
+                if len(new_set) == 0:
+                    print("No primer pair left for " + primer_set_q.name + ". Consider less restrictive BLAST settings.")
+                    sys.exit(1)
+
             print("\n")
 
-            primer_sets[primer_set_q.index].set = primer_set_q.set
+            primer_sets[primer_set_q.index].set = new_set
