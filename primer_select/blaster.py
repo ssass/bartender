@@ -62,4 +62,9 @@ class Blaster:
 
         while not q.empty():
             primer_set_q = q.get()
+            for pair in primer_set_q.set:
+                if pair.blast_hits[0] > self.config.maxHits or pair.blast_hits[1] > self.config.maxHits:
+                    primer_set_q.set.remove(pair)
+                    if len(primer_set_q.set) == 0:
+                        raise Exception("No primer pair left for " + primer_set_q.name + ". Consider less restrictive BLAST settings.")
             primer_sets[primer_set_q.index].set = primer_set_q.set
