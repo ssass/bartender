@@ -3,6 +3,8 @@ from multiprocessing import Process, Queue
 from collections import deque
 import shlex
 import subprocess
+import sys
+
 
 class Blaster:
 
@@ -68,6 +70,7 @@ class Blaster:
                     primer_set_q.set.remove(pair)
                     print(len(primer_set_q))
                     if len(primer_set_q) == 0:
-                        raise Exception("No primer pair left for " + primer_set_q.name + ". Consider less restrictive BLAST settings.")
+                        print("No primer pair left for " + primer_set_q.name + ". Consider less restrictive BLAST settings.")
+                        sys.exit(1)
 
             primer_sets[primer_set_q.index].set = primer_set_q.set

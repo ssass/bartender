@@ -13,7 +13,7 @@ args = parser.parse_args()
 
 ch = PsConfigurationHandler("config.cfg")
 config = ch.read_config()
-raise Exception("No primer pair left f")
+
 primer_predictor = PrimerPredictor(config, args.input)
 primer_sets = primer_predictor.predict_primer_set()
 
