@@ -35,6 +35,11 @@ opt_result = optimizer.optimize()
 print(opt_result.sum_mfe)
 print(opt_result.opt_arrangement)
 
-for i in xrange(0, 10):
-    v = opt_result.arrangements[i]
-    print(v)
+unique_indices = [len(opt_result.arrangements)-1]
+last_mfe = opt_result.sum_mfe[len(opt_result.arrangements)-1]
+for act_mfe in reversed(opt_result.sum_mfe):
+        if act_mfe != last_mfe:
+            unique_indices.append(act_mfe)
+
+for i in unique_indices:
+    print(i)
