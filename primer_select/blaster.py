@@ -64,7 +64,8 @@ class Blaster:
 
         while not q.empty():
             primer_set_q = q.get()
-            for pair in primer_set_q.set:
+            for i, pair in enumerate(primer_set_q.set):
+                print(i, len(primer_set_q))
                 print(self.config.blast_max_hits, pair.blast_hits)
                 if pair.blast_hits[0] > self.config.blast_max_hits or pair.blast_hits[1] > self.config.blast_max_hits:
                     primer_set_q.set.remove(pair)
