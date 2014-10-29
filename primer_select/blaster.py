@@ -73,6 +73,6 @@ class Blaster:
                     if len(primer_set_q) == 0:
                         print("No primer pair left for " + primer_set_q.name + ". Consider less restrictive BLAST settings.")
                         sys.exit(1)
-                print("\n")
+            print("\n")
 
             primer_sets[primer_set_q.index].set = primer_set_q.set
