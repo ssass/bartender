@@ -8,7 +8,12 @@ from primer_select.rnacofolder import Cofolder
 
 parser = argparse.ArgumentParser(description='Run the PrimerSelect pipeline.')
 
-parser.add_argument("input", help="Input file containing the sequences in FASTA format", type=str)
+parser.add_argument("input", help="Input file containing the sequences in FASTA format. "
+                                  "The FASTA headers indicate the sequence ID and have to be unique.", type=str)
+parser.add_argument("--predefined", help="Input file containing sequences in FASTA format for predefined primer pairs. "
+                                   "The primer IDs have to be specified according to the corresponding input sequence IDs \'X\' as \'X_fwd\' and \'X_rev\'. "
+                                   "Otherwise, the given primer sequences are ignored.", type=str)
+
 args = parser.parse_args()
 
 ch = PsConfigurationHandler("config.cfg")
