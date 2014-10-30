@@ -57,8 +57,8 @@ for i in unique_indices[0:10]:
     v = opt_result.arrangements[i]
     for j, pset in enumerate(primer_sets):
         pair = pset.set[v[j]]
-        print(pset.name + "\tfwd: " + pair.fwd + "\trev: " + pair.rev + "\tBLAST hits: " + pair.blast_hits[0] + " / "
-              + pair.blast_hits[1])
+        print(pset.name + "\tfwd: " + pair.fwd + "\trev: " + pair.rev + "\tBLAST hits: " +
+              str(pair.blast_hits[0]) + " / " + str(pair.blast_hits[1]))
     print("------------------\n\n")
 
 
