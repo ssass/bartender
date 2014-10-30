@@ -40,8 +40,8 @@ cofolder.cofold(primer_sets)
 optimizer = Optimizer(config, primer_sets)
 opt_result = optimizer.optimize()
 
-print(opt_result.sum_mfe)
-print(opt_result.opt_arrangement)
+# print(opt_result.sum_mfe)
+# print(opt_result.opt_arrangement)
 
 unique_indices = [len(opt_result.arrangements)-1]
 last_mfe = opt_result.sum_mfe[len(opt_result.arrangements)-1]

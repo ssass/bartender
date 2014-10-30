@@ -106,4 +106,7 @@ class PrimerPredictor:
             primer_sets.append(primer_set)
         handle.close()
 
+        for key in predefined_sets:
+            print("WARNING: No input sequence could be found for the predefined primer " + key)
+
         return primer_sets
