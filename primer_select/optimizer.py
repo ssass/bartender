@@ -32,8 +32,6 @@ class Optimizer:
         for pset in self.primer_sets:
             set_lengths.append(len(pset))
 
-        print (set_lengths)
-
         combinations = []
         act_temperature = max_temperature
 
@@ -61,4 +59,4 @@ class Optimizer:
             combinations.append(copy.copy(v))
             mfe_sum.append(self.f(v))
 
-        return OptimizationResult(v, combinations, mfe_sum)
+        return OptimizationResult(v, combinations[::-1], mfe_sum[::-1])

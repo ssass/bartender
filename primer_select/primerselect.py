@@ -27,12 +27,12 @@ primer_sets = primer_predictor.predict_primer_set()
 
 blaster = Blaster(config, args.input)
 blaster.blast_primer_set(primer_sets)
-
-for primer_set in primer_sets:
-    print(primer_set.name, "\n")
-    for pair in primer_set.set:
-        print (pair.name, "\t", pair.blast_hits[0], "/", pair.blast_hits[1])
-    print("\n")
+#
+# for primer_set in primer_sets:
+#     print(primer_set.name, "\n")
+#     for pair in primer_set.set:
+#         print (pair.name, "\t", pair.blast_hits[0], "/", pair.blast_hits[1])
+#     print("\n")
 
 cofolder = Cofolder(config, args.input)
 cofolder.cofold(primer_sets)
@@ -43,11 +43,13 @@ opt_result = optimizer.optimize()
 # print(opt_result.sum_mfe)
 # print(opt_result.opt_arrangement)
 
-unique_indices = [len(opt_result.arrangements)-1]
-last_mfe = opt_result.sum_mfe[len(opt_result.arrangements)-1]
-for act_mfe in reversed(opt_result.sum_mfe):
-        if act_mfe != last_mfe:
-            unique_indices.append(act_mfe)
+unique_indices = [0]
+last_mfe = opt_result.sum_mfe[0]
 
-# for i in unique_indices:
-#     print(i)
+for i, act_mfe in enumerate(opt_result.sum_mfe):
+        if act_mfe != last_mfe:
+            unique_indices.append(i)
+            last_mfe = act_mfe
+
+for i in unique_indices:
+    print(opt_result.sum_mfe[i],opt_result.arrangements[i])
