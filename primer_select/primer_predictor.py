@@ -1,3 +1,5 @@
+import sys
+
 __author__ = 'Steffen'
 from Bio import SeqIO
 import shlex
@@ -7,11 +9,47 @@ from primer_select.primerpair import *
 
 class PrimerPredictor:
 
-    def __init__(self, config, fasta_file):
+    def __init__(self, config, fasta_file, predefined):
         self.config = config
         self.input = fasta_file
+        self.predefined = predefined
+
+    def parse_predefined_pairs(self):
+        handle = open(self.predefined, "rU")
+        predefined_sets = dict()
+
+        for record in SeqIO.parse(handle, "fasta"):
+            seq = str(record.seq)
+
+            if seq.find("&") == -1:
+                print("Please specify fwd and rev primer sequences by separating them with \'&\' for the predefined "
+                      "primer " + record.id + ".")
+                sys.exit(1)
+
+            seqs = seq.split("&")
+            if len(seqs != 2):
+                print("Exactly two primer sequences (fwd&rev) have to provided for the predefined "
+                      "primer " + record.id + ".")
+                sys.exit(1)
+
+            pair_ind = 0
+            if record.id in predefined_sets:
+                act_set = predefined_sets[record.id]
+                for pair in act_set:
+                    ind = int(pair.name.split("_")[1])
+                    if ind > pair_ind:
+                        pair_ind = ind
+                act_set.set.append(PrimerPair(seqs[0], seqs[1], record.id + "_" + str(pair_ind)))
+            else:
+                ps = PrimerSet(record.id)
+                ps.set.append(PrimerPair(seqs[0], seqs[1], record.id + "_" + str(pair_ind)))
+                predefined_sets[record.id] = ps
+
+
 
     def predict_primer_set(self):
+        if self.predefined != "":
+            self.parse_predefined_pairs()
 
         primer_sets = []
         handle = open(self.input, "rU")
