@@ -49,5 +49,5 @@ for act_mfe in reversed(opt_result.sum_mfe):
         if act_mfe != last_mfe:
             unique_indices.append(act_mfe)
 
-for i in unique_indices:
-    print(i)
+# for i in unique_indices:
+#     print(i)
