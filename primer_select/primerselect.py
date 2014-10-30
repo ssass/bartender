@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser(description='Run the PrimerSelect pipeline.')
 
 parser.add_argument("input", help="Input file containing the sequences in FASTA format. "
                                   "The FASTA headers indicate the sequence ID and have to be unique.", type=str)
-parser.add_argument("--predefined", help="Input file containing sequences in FASTA format for predefined primer pairs. "
+parser.add_argument("--predefined", dest="predefined", help="Input file containing sequences in FASTA format for predefined primer pairs. "
                                          "The primer pair sequences have to provided as \'fwdseq&revseq\'. "
                                    "The FASTA header of a given primer has to be specified according to the "
                                    "corresponding input sequence ID. "
@@ -22,8 +22,14 @@ args = parser.parse_args()
 ch = PsConfigurationHandler("config.cfg")
 config = ch.read_config()
 
-primer_predictor = PrimerPredictor(config, args.input)
+primer_predictor = PrimerPredictor(config, args.input, args.predefined)
 primer_sets = primer_predictor.predict_primer_set()
+
+for primer_set in primer_sets:
+    print(primer_set.name, "\n")
+    for pair in primer_set.set:
+        print (pair.name, "\t", pair.fwd, "/", pair.rev)
+    print("\n")
 
 blaster = Blaster(config, args.input)
 blaster.blast_primer_set(primer_sets)

@@ -14,7 +14,7 @@ class PrimerPredictor:
         self.input = fasta_file
         self.predefined = predefined
 
-    def parse_predefined_pairs(self):
+    def parse_predefined_pairs(self, predefined_sets):
         handle = open(self.predefined, "rU")
         predefined_sets = dict()
 
@@ -27,7 +27,7 @@ class PrimerPredictor:
                 sys.exit(1)
 
             seqs = seq.split("&")
-            if len(seqs != 2):
+            if len(seqs) != 2:
                 print("Exactly two primer sequences (fwd&rev) have to provided for the predefined "
                       "primer " + record.id + ".")
                 sys.exit(1)
@@ -35,11 +35,11 @@ class PrimerPredictor:
             pair_ind = 0
             if record.id in predefined_sets:
                 act_set = predefined_sets[record.id]
-                for pair in act_set:
+                for pair in act_set.set:
                     ind = int(pair.name.split("_")[1])
                     if ind > pair_ind:
                         pair_ind = ind
-                act_set.set.append(PrimerPair(seqs[0], seqs[1], record.id + "_" + str(pair_ind)))
+                act_set.set.append(PrimerPair(seqs[0], seqs[1], record.id + "_" + str(pair_ind+1)))
             else:
                 ps = PrimerSet(record.id)
                 ps.set.append(PrimerPair(seqs[0], seqs[1], record.id + "_" + str(pair_ind)))
@@ -48,12 +48,19 @@ class PrimerPredictor:
 
 
     def predict_primer_set(self):
+        predefined_sets = dict()
         if self.predefined != "":
-            self.parse_predefined_pairs()
+            self.parse_predefined_pairs(predefined_sets)
 
         primer_sets = []
         handle = open(self.input, "rU")
         for record in SeqIO.parse(handle, "fasta"):
+
+            if record.id in predefined_sets:
+                primer_sets.append(predefined_sets[record.id])
+                del predefined_sets[record.id]
+                continue
+
             sequence = str(record.seq)
             p3file = record.id + "_seq.txt"
 
