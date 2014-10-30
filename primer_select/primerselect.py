@@ -52,7 +52,7 @@ for i, act_mfe in enumerate(opt_result.sum_mfe):
             last_mfe = act_mfe
 
 for i in unique_indices[0:10]:
-    print("Rank " + i + ": Sum MFE=" + opt_result.sum_mfe[i])
+    print("Rank " + str(i) + ": Sum MFE=" + str(opt_result.sum_mfe[i]))
 
     v = opt_result.arrangements[i]
     for j, pset in enumerate(primer_sets):
