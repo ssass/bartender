@@ -3,7 +3,8 @@ from configuration import *
 
 class PsConfigurationHandler(ConfigurationHandler):
 
-    def write_standard_config(self):  # Write the standard settings file
+    @staticmethod
+    def write_standard_config(path):  # Write the standard settings file
         """ Write the standard settings file
 
         """
@@ -27,16 +28,17 @@ class PsConfigurationHandler(ConfigurationHandler):
         config.set('Optimization', 'steps', 500)
         config.set('Optimization', 'maxTemp', 15)
 
-        with open(self.path, 'w') as configfile:
+        with open(path, 'w') as configfile:
             config.write(configfile)
 
-    def read_config(self):  # Read the settings file
+    @staticmethod
+    def read_config(handle):  # Read the settings file
         """ Read the settings file
 
         """
 
         config = ConfigParser.RawConfigParser()
-        config.read(self.path)
+        config.readfp(handle)
         c = Configuration()
         c.max_threads = config.getint('DEFAULT', 'threads')
         c.p3_path = config.get('Primer3', 'path')

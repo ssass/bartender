@@ -1,6 +1,4 @@
 import sys
-
-__author__ = 'Steffen'
 from Bio import SeqIO
 import shlex
 import subprocess
@@ -9,15 +7,14 @@ from primer_select.primerpair import *
 
 class PrimerPredictor:
 
-    def __init__(self, config, fasta_file, predefined):
+    def __init__(self, config, input_handle, predefined_handle):
         self.config = config
-        self.input = fasta_file
-        self.predefined = predefined
+        self.input_handle = input_handle
+        self.predefined_handle = predefined_handle
 
     def parse_predefined_pairs(self, predefined_sets):
-        handle = open(self.predefined, "rU")
 
-        for record in SeqIO.parse(handle, "fasta"):
+        for record in SeqIO.parse(self.predefined_handle, "fasta"):
             seq = str(record.seq)
 
             if seq.find("&") == -1:
@@ -45,15 +42,13 @@ class PrimerPredictor:
                 predefined_sets[record.id] = ps
 
 
-
     def predict_primer_set(self):
         predefined_sets = dict()
-        if self.predefined != "":
+        if self.predefined_handle is not None:
             self.parse_predefined_pairs(predefined_sets)
 
         primer_sets = []
-        handle = open(self.input, "rU")
-        for record in SeqIO.parse(handle, "fasta"):
+        for record in SeqIO.parse(self.input_handle, "fasta"):
 
             if record.id in predefined_sets:
                 primer_sets.append(predefined_sets[record.id])
@@ -101,7 +96,6 @@ class PrimerPredictor:
                 primer_set.append(PrimerPair(p3_pairs[0], p3_pairs[1], record.id + "_" + str(i)))
 
             primer_sets.append(primer_set)
-        handle.close()
 
         for key in predefined_sets:
             print("WARNING: No input sequence could be found for the predefined primer " + key)
