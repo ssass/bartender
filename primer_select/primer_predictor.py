@@ -16,7 +16,6 @@ class PrimerPredictor:
 
     def parse_predefined_pairs(self, predefined_sets):
         handle = open(self.predefined, "rU")
-        predefined_sets = dict()
 
         for record in SeqIO.parse(handle, "fasta"):
             seq = str(record.seq)
