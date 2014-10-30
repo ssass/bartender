@@ -11,8 +11,11 @@ parser = argparse.ArgumentParser(description='Run the PrimerSelect pipeline.')
 parser.add_argument("input", help="Input file containing the sequences in FASTA format. "
                                   "The FASTA headers indicate the sequence ID and have to be unique.", type=str)
 parser.add_argument("--predefined", help="Input file containing sequences in FASTA format for predefined primer pairs. "
-                                   "The primer IDs have to be specified according to the corresponding input sequence IDs \'X\' as \'X_fwd\' and \'X_rev\'. "
-                                   "Otherwise, the given primer sequences are ignored.", type=str)
+                                         "The primer pair sequences have to specified as \'fwd&rev\'."
+                                   "The FASTA header of a given primer has to be specified according to the "
+                                   "corresponding input sequence ID. "
+                                   "If you want to specify more than one primer pair per input "
+                                   "sequence, please add \'_1\', \'_2\' ... to the sequence ID.", type=str, default="")
 
 args = parser.parse_args()
 
