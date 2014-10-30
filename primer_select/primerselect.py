@@ -51,5 +51,15 @@ for i, act_mfe in enumerate(opt_result.sum_mfe):
             unique_indices.append(i)
             last_mfe = act_mfe
 
-for i in unique_indices:
-    print(opt_result.sum_mfe[i],opt_result.arrangements[i])
+for i in unique_indices[0:10]:
+    print("Rank " + i + ": Sum MFE=" + opt_result.sum_mfe[i])
+
+    v = opt_result.arrangements[i]
+    for j, pset in enumerate(primer_sets):
+        pair = pset.set[v[j]]
+        print(pset.name + "\tfwd: " + pair.fwd + "\trev: " + pair.rev + "\tBLAST hits: " + pair.blast_hits[0] + " / "
+              + pair.blast_hits[1])
+    print("------------------\n\n")
+
+
+
