@@ -75,11 +75,13 @@ else:
 
 input_handle = open(args.input, 'rU')
 
+primer_sets = start_process(config, input_handle, predef_handle)
+
+input_handle.close()
 if args.predefined != "":
     predef_handle.close()
 
 
-primer_sets = start_process(config, input_handle, predef_handle)
 opt_result = optimize(config, primer_sets)
 output(opt_result, primer_sets)
 
