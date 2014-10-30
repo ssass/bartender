@@ -56,7 +56,6 @@ class PrimerPredictor:
         for record in SeqIO.parse(handle, "fasta"):
 
             if record.id in predefined_sets:
-                print(record.id)
                 primer_sets.append(predefined_sets[record.id])
                 del predefined_sets[record.id]
                 continue
