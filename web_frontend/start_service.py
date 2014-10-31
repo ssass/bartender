@@ -20,7 +20,6 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = RECAPTCHA_PRIVATE_KEY
 
 class SignupForm(Form):
     username = TextField('Username')
-    recaptcha = RecaptchaField()
 
 @app.route('/')
 def main():
