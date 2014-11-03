@@ -26,12 +26,17 @@ def submit():
     if form.validate_on_submit():
         print
         input = StringIO.StringIO(form.input.data)
+        if form.predefined.data != "":
+            predefined = StringIO.StringIO(form.predefined.data)
+        else:
+            predefined = None
+
         config_handle = StringIO.StringIO(form.configuration.data)
         config = PsConfigurationHandler.read_config(config_handle)
         config_handle.close()
-        primer_sets = PrimerSelect.predict_primerset(input_handle=input, predefined_handle=None, config=config)
+        primer_sets = PrimerSelect.predict_primerset(input_handle=input, predefined_handle=predefined, config=config)
         opt_result = PrimerSelect.optimize(config, primer_sets)
-        output = PrimerSelect.output(opt_result, primer_sets).replace("\n","\n\r")
+        output = PrimerSelect.output(opt_result, primer_sets).replace("\n","<br>")
         return render_template('base.html', form=form, output=output)
     return render_template('base.html', form=form)
 
