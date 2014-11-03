@@ -8,6 +8,9 @@
     {% endif %}
     {{ form.predefined.label }} {{ form.predefined() }}<br>
     {{ form.configuration.label }}{{ form.configuration() }}
+    {% if output %}
+        {{ output }}
+    {% endif %}
     <input type="submit" value="Go">
 </form>
   </body>
