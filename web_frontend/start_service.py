@@ -31,7 +31,8 @@ def submit():
         config_handle.close()
         primer_sets = PrimerSelect.predict_primerset(input_handle=input, predefined_handle=None, config=config)
         opt_result = PrimerSelect.optimize(config, primer_sets)
-        PrimerSelect.output(opt_result, primer_sets)
+        output = PrimerSelect.output(opt_result, primer_sets)
+        print(output)
     return render_template('base.html', form=form)
 
 

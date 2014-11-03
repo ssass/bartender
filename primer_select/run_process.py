@@ -8,6 +8,7 @@ class PrimerSelect:
 
     @staticmethod
     def output(opt_result, primer_sets):
+        output_string = ""
         unique_indices = [0]
         last_mfe = opt_result.sum_mfe[0]
 
@@ -17,14 +18,15 @@ class PrimerSelect:
                 last_mfe = act_mfe
 
         for rank, i in enumerate(unique_indices[0:10]):
-            print("Rank " + str(rank + 1) + ": Sum MFE=" + str(opt_result.sum_mfe[i]))
+            output_string += "Rank " + str(rank + 1) + ": Sum MFE=" + str(opt_result.sum_mfe[i]) + "\n"
 
             v = opt_result.arrangements[i]
             for j, pset in enumerate(primer_sets):
                 pair = pset.set[v[j]]
-                print(pset.name + "\tfwd: " + pair.fwd + "\trev: " + pair.rev + "\tBLAST hits: " +
-                      str(pair.blast_hits[0]) + " / " + str(pair.blast_hits[1]))
-            print("------------------\n")
+                output_string += pset.name + "\tfwd: " + pair.fwd + "\trev: " + pair.rev + "\tBLAST hits: " \
+                                 + str(pair.blast_hits[0]) + " / " + str(pair.blast_hits[1]) + "\n"
+            output_string += "------------------\n"
+        return output_string
 
 
     @staticmethod
