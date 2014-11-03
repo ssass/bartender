@@ -3,6 +3,7 @@ import StringIO
 from flask import *
 from wtforms import BooleanField, StringField, validators, TextAreaField
 from flask_wtf import Form
+from primer_select.ps_configuration import PsConfigurationHandler
 from primer_select.run_process import PrimerSelect
 
 app = Flask(__name__)
@@ -23,9 +24,12 @@ class InputForm(Form):
 def submit():
     form = InputForm()
     if form.validate_on_submit():
-        input = StringIO.StringIO(form.input)
-        config = StringIO.StringIO(form.configuration)
-        primer_sets = PrimerSelect.predict_primerset(input, None, config)
+        print
+        input = StringIO.StringIO(form.input.data)
+        config_handle = StringIO.StringIO(form.configuration.data)
+        config = PsConfigurationHandler.read_config(config_handle)
+        config_handle.close()
+        primer_sets = PrimerSelect.predict_primerset(input_handle=input, predefined_handle=None, config=config)
         opt_result = PrimerSelect.optimize(config, primer_sets)
         PrimerSelect.output(opt_result, primer_sets)
     return render_template('base.html', form=form)
