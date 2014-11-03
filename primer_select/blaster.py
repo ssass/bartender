@@ -8,9 +8,8 @@ import sys
 
 class Blaster:
 
-    def __init__(self, config, fasta_file):
+    def __init__(self, config):
         self.config = config
-        self.input = fasta_file
 
     def run_process(self, primer_set, args, q):
         print("Blasting primer", primer_set.name, "...")

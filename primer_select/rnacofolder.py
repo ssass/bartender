@@ -5,9 +5,8 @@ import re
 
 class Cofolder:
 
-    def __init__(self, config, fasta_file):
+    def __init__(self, config):
         self.config = config
-        self.input = fasta_file
 
     def get_mfe(self, rnac_output, pos):
 

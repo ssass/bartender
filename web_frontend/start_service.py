@@ -1,43 +1,35 @@
+import os
+import StringIO
 from flask import *
-from wtforms import StringField, BooleanField, Form
-from flask_wtf import Form, RecaptchaField
-from wtforms import TextField
-import logging
-import sys
-
-# Defaults to stdout
-logging.basicConfig(level=logging.INFO)
-
-# get the logger for the current Python module
-log = logging.getLogger(__name__)
+from wtforms import BooleanField, StringField, validators, TextAreaField
+from flask_wtf import Form
+from primer_select.run_process import PrimerSelect
 
 app = Flask(__name__)
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-RECAPTCHA_PUBLIC_KEY = '6LeYIbsSAAAAACRPIllxA7wvXjIE411PfdB2gt2J'
-RECAPTCHA_PRIVATE_KEY = '6LeYIbsSAAAAAJezaIq3Ft_hSTo0YtyeFG-JgRtu'
-app.config['RECAPTCHA_PUBLIC_KEY'] = RECAPTCHA_PUBLIC_KEY
-app.config['RECAPTCHA_PRIVATE_KEY'] = RECAPTCHA_PRIVATE_KEY
+config_handle = open("../config.cfg", 'rU')
+with open ("../config.cfg", "r") as f:
+    predefined_config = f.read()
 
-class SignupForm(Form):
-    username = TextField('Username')
+class MyForm(Form):
+    name = StringField('name', validators=[validators.Length(min=4, max=25)])
 
-@app.route('/')
-def main():
-    return "Welcome to the python service!"
+class InputForm(Form):
+    input = TextAreaField('Input Sequences', validators=[validators.DataRequired()])
+    predefined = TextAreaField('Predefined primers')
+    configuration = TextAreaField('Configuration', default=predefined_config, validators=[validators.DataRequired()])
 
-@app.route('/primerselect/')
-def start(name=None):
-    return render_template('base.html', name=name)
+@app.route('/submit', methods=('GET', 'POST'))
+def submit():
+    form = InputForm()
+    if form.validate_on_submit():
+        input = StringIO.StringIO(form.input)
+        config = StringIO.StringIO(form.configuration)
+        primer_sets = PrimerSelect.predict_primerset(input, None, config)
+        opt_result = PrimerSelect.optimize(config, primer_sets)
+        PrimerSelect.output(opt_result, primer_sets)
+    return render_template('base.html', form=form)
 
-@app.route('/primerselect/run', methods=['GET', 'POST'])
-def start_process(name=None):
-    return render_template('base.html', name=name)
-
-
-@app.route('/hello/')
-def hello():
-    form = SignupForm()
-    return render_template('hello.html', form=form)
 
 if __name__ == '__main__':
     app.debug = True
