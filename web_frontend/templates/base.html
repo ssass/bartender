@@ -1,4 +1,15 @@
 <html>
+
+<head>
+  <title>PrimerSelect</title>
+
+<style type="text/css">
+.pre {white-space: pre;}
+.nowrap {white-space: nowrap;}
+.pre-wrap {white-space: pre-wrap;}
+.pre-line {white-space: pre-line;}
+</style>
+</head>
   <body>
 <form method="POST" action="/submit">
      {{ form.hidden_tag() }}
@@ -10,8 +21,10 @@
     {{ form.configuration.label }}{{ form.configuration() }}
     <input type="submit" value="Go"><br>
 </form>
+<p class="pre-wrap">
       {% if output %}
         {{ output }}
     {% endif %}
+  </p>
   </body>
 </html>
