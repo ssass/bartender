@@ -20,7 +20,7 @@ class InputForm(Form):
     predefined = TextAreaField('Predefined primers')
     configuration = TextAreaField('Configuration', default=predefined_config, validators=[validators.DataRequired()])
 
-@app.route('/submit', methods=('GET', 'POST'))
+@app.route('/primerselect', methods=('GET', 'POST'))
 def submit():
     form = InputForm()
     if form.validate_on_submit():
