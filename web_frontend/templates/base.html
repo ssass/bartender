@@ -3,23 +3,30 @@
 <head>
   <title>PrimerSelect</title>
 
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo_main.css') }}">
 </head>
   <body>
+  <div class="templatemo-content-wrapper">
+      <div class="templatemo-content">
 <form method="POST" action="/submit">
      {{ form.hidden_tag() }}
-    {{ form.input.label }} {{ form.input() }}<br>
+    <table>
+        <tr>
+    <td>{{ form.input.label }}</td><td>{{ form.input(rows=10, cols=80) }}<br>
     {% if form.input.errors %}
         <ul class="errors">{% for error in form.input.errors %}<li>{{ error }}</li>{% endfor %}</ul>
-    {% endif %}
-    {{ form.predefined.label }} {{ form.predefined() }}<br>
-    {{ form.configuration.label }}{{ form.configuration() }}
+    {% endif %}</td></tr>
+    <td>{{ form.predefined.label }}</td><td>{{ form.predefined(rows=10, cols=80) }}</td></tr>
+    <td>{{ form.configuration.label }}</td><td>{{ form.configuration(rows=10, cols=80) }}</td></tr>
+    </table>
     <input type="submit" value="Go"><br>
 </form>
 <p class="pre-wrap">
       {% if output %}
         {{ output }}
-    {% endif %}
+      {% endif %}
   </p>
+          </div>
+      </div>
   </body>
 </html>
