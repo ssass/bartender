@@ -3,28 +3,23 @@ from primer_select.blaster import Blaster
 from primer_select.optimizer import Optimizer
 from primer_select.primer_predictor import PrimerPredictor
 from primer_select.rnacofolder import Cofolder
+from operator import itemgetter
 
 class PrimerSelect:
 
     @staticmethod
-    def output(opt_result, primer_sets):
+    def output(arrangements, primer_sets):
         output_string = ""
-        unique_indices = [0]
-        last_mfe = opt_result.sum_mfe[0]
 
-        for i, act_mfe in enumerate(opt_result.sum_mfe):
-            if act_mfe != last_mfe:
-                unique_indices.append(i)
-                last_mfe = act_mfe
+        for i, run in enumerate(arrangements[0:5]):
+            output_string += "Rank " + str(i + 1) + ": Sum MFE=" + str(run[0]) + "\n"
 
-        for rank, i in enumerate(unique_indices[0:10]):
-            output_string += "Rank " + str(rank + 1) + ": Sum MFE=" + str(opt_result.sum_mfe[i]) + "\n"
-
-            v = opt_result.arrangements[i]
+            v = run[1]
             for j, pset in enumerate(primer_sets):
                 pair = pset.set[v[j]]
-                output_string += pset.name + "\tfwd: " + pair.fwd + "\trev: " + pair.rev + "\tBLAST hits: " \
-                                 + str(pair.blast_hits[0]) + " / " + str(pair.blast_hits[1]) + "\n"
+                output_string += pset.name + "\tfwd: " + pair.fwd.sequence.upper() + "\trev: " \
+                                 + pair.rev.sequence.upper() + "\tBLAST hits: " \
+                                 + str(pair.fwd.blast_hits) + " / " + str(pair.rev.blast_hits) + "\n"
             output_string += "------------------\n"
         return output_string
 

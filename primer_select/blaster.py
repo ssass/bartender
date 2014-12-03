@@ -3,8 +3,7 @@ from multiprocessing import Process, Queue
 from collections import deque
 import shlex
 import subprocess
-import sys
-
+from helpers.primerpair import PrimerPair
 
 class Blaster:
 
@@ -15,8 +14,8 @@ class Blaster:
         print("Blasting primer", primer_set.name, "...")
         blast_string = ""
         for pair in primer_set.set:
-            blast_string += ">" + pair.name + "_fwd\n" + pair.fwd + "\n\n"
-            blast_string += ">" + pair.name + "_rev\n" + pair.rev + "\n\n"
+            blast_string += ">" + pair.name + "_fwd\n" + pair.fwd.sequence + "\n\n"
+            blast_string += ">" + pair.name + "_rev\n" + pair.rev.sequence + "\n\n"
 
         p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         blast_output = p.communicate(blast_string)[0].strip()
@@ -28,8 +27,8 @@ class Blaster:
                 blast_hits.append(act_result[0])
 
         for pair in primer_set.set:
-            pair.blast_hits[0] = blast_hits.count(pair.name + "_fwd")
-            pair.blast_hits[1] = blast_hits.count(pair.name + "_rev")
+            pair.fwd.blast_hits = blast_hits.count(pair.name + "_fwd")
+            pair.rev.blast_hits = blast_hits.count(pair.name + "_rev")
 
         q.put(primer_set)
 
@@ -67,9 +66,8 @@ class Blaster:
             del new_set[:]
 
             for i, pair in enumerate(primer_set_q.set):
-                if pair.blast_hits[0] <= self.config.blast_max_hits and pair.blast_hits[1] <= self.config.blast_max_hits:
+                if pair.fwd.blast_hits <= self.config.blast_max_hits and pair.rev.blast_hits <= self.config.blast_max_hits:
                     new_set.append(pair)
 
             if len(new_set) == 0:
-                print("No primer pair left for " + primer_set_q.name + ". Consider less restrictive BLAST settings.")
-                sys.exit(1)
+                raise Exception("No primer pair left for " + primer_set_q.name + ". Consider less restrictive BLAST settings.")

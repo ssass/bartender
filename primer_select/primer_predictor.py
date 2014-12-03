@@ -1,8 +1,11 @@
 import sys
-from Bio import SeqIO
 import shlex
 import subprocess
-from primer_select.primerpair import *
+
+from Bio import SeqIO
+from helpers.p3_parser import P3Parser
+from helpers.primerpair import *
+from helpers.primer import *
 
 
 class PrimerPredictor:
@@ -35,14 +38,16 @@ class PrimerPredictor:
                     ind = int(pair.name.split("_")[1])
                     if ind > pair_ind:
                         pair_ind = ind
-                act_set.set.append(PrimerPair(seqs[0], seqs[1], record.id + "_" + str(pair_ind+1)))
+
+                act_set.set.append(PrimerPair(Primer(seqs[0], None), Primer(seqs[1], None), record.id + "_" + str(pair_ind+1)))
             else:
-                ps = PrimerSet(record.id)
-                ps.set.append(PrimerPair(seqs[0], seqs[1], record.id + "_" + str(pair_ind)))
+                ps = PrimerPairSet(record.id)
+                ps.set.append(PrimerPair(Primer(seqs[0], None),  Primer(seqs[1], None), record.id + "_" + str(pair_ind)))
                 predefined_sets[record.id] = ps
 
 
     def predict_primer_set(self):
+
         predefined_sets = dict()
         if self.predefined_handle is not None:
             self.parse_predefined_pairs(predefined_sets)
@@ -76,24 +81,26 @@ class PrimerPredictor:
             input_string += "SEQUENCE_ID=" + record.id + "\n"
             input_string += "SEQUENCE_TEMPLATE=" + sequence + "\n"
 
-            if target_start >= 0 & target_length >= 0:
+            if target_start >= 0 and target_length >= 0:
                 input_string += "SEQUENCE_TARGET=" + str(target_start) + "," + str(target_length) + "\n"
 
-            if target_start >= 0 & target_length >= 0:
+            if exclude_start >= 0 and exclude_length >= 0:
                 input_string += "SEQUENCE_EXCLUDED_REGION=" + str(exclude_start + 1) + "," + str(exclude_length) + "\n"
 
             input_string += "P3_FILE_FLAG=0\n"
             input_string += "PRIMER_THERMODYNAMIC_PARAMETERS_PATH=" + self.config.p3_thermo_path + "\n="
 
-            cmd = self.config.p3_path + " -format_output -p3_settings_file=" + self.config.p3_config_path
+            cmd = self.config.p3_path + " -p3_settings_file=" + self.config.p3_config_path
             args = shlex.split(cmd)
             p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
             p3_output = p.communicate(input_string)[0].strip()
-            p3_output = p3_output.split("\n")
-            primer_set = PrimerSet(record.id)
-            for i, p3o in enumerate(p3_output):
-                p3_pairs = p3o.strip().split("\t")
-                primer_set.append(PrimerPair(p3_pairs[0], p3_pairs[1], record.id + "_" + str(i)))
+
+            m = re.search('(?<=PRIMER_ERROR=)\w+', p3_output)
+            if m is not None:
+                raise Exception("Error for sequence " + record.id + ": " + m.group(0))
+
+            primer_set = PrimerPairSet(record.id)
+            P3Parser.parse_p3_information(primer_set, p3_output)
 
             primer_sets.append(primer_set)
 

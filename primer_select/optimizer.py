@@ -3,13 +3,6 @@ import random
 import math
 import copy
 
-class OptimizationResult:
-    def __init__(self, opt_arrangement, arrangements, sum_mfe):
-        self.opt_arrangement = opt_arrangement
-        self.arrangements = arrangements
-        self.sum_mfe = sum_mfe
-
-
 class Optimizer:
 
     def __init__(self, config, primer_sets):
@@ -56,7 +49,13 @@ class Optimizer:
                 elif act_temperature > 0 and math.exp((self.f(v)-self.f(v_temp))/act_temperature) > random.uniform(0, 1):
                     v[j] = k
 
-            combinations.append(copy.copy(v))
-            mfe_sum.append(self.f(v))
+            combinations.append((self.f(v), copy.copy(v)))
 
-        return OptimizationResult(v, combinations[::-1], mfe_sum[::-1])
+        unique_arrangements = []
+        arrangements = sorted(combinations, key=lambda x: x[0])
+
+        for run in arrangements:
+            if run not in unique_arrangements:
+                unique_arrangements.append(run)
+
+        return unique_arrangements

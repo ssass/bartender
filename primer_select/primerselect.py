@@ -30,6 +30,7 @@ config_handle = open("config.cfg", 'rU')
 config = PsConfigurationHandler.read_config(config_handle)
 config_handle.close()
 
+
 if args.predefined != "":
     predef_handle = open(args.predefined, 'rU')
 else:
@@ -45,8 +46,8 @@ if args.predefined != "":
 
 
 opt_result = PrimerSelect.optimize(config, primer_sets)
-PrimerSelect.output(opt_result, primer_sets)
-
+output = PrimerSelect.output(opt_result, primer_sets)
+print(output)
 
 
 

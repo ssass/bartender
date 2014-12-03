@@ -1,4 +1,11 @@
-class PrimerSet:
+from __future__ import print_function
+import ConfigParser
+import StringIO
+import re
+from helpers.primer import Primer
+
+
+class PrimerPairSet:
     def __init__(self, name):
         self.name = name
         self.set = []
@@ -15,4 +22,9 @@ class PrimerPair:
         self.fwd = fwd
         self.rev = rev
         self.name = name
-        self.blast_hits  = [0, 0]
+
+    def fwd_seq(self):
+        return self.fwd.sequence
+
+    def rev_seq(self):
+        return self.rev.sequence

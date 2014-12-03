@@ -30,13 +30,13 @@ class Cofolder:
                         positions[pair1.name + "&" + pair2.name] = pos
                         pos += 12
                         cofold_string += ">" + pair1.name + "_fwd" + "&" + pair2.name +"_fwd" + "\n"
-                        cofold_string += pair1.fwd + "&" + pair2.fwd + "\n"
+                        cofold_string += pair1.fwd.sequence + "&" + pair2.fwd.sequence + "\n"
                         cofold_string += ">" + pair1.name + "_rev" + "&" + pair2.name +"_rev" + "\n"
-                        cofold_string += pair1.rev + "&" + pair2.rev + "\n"
+                        cofold_string += pair1.rev.sequence + "&" + pair2.rev.sequence + "\n"
                         cofold_string += ">" + pair1.name + "_fwd" + "&" + pair2.name +"_rev" + "\n"
-                        cofold_string += pair1.fwd + "&" + pair2.rev + "\n"
+                        cofold_string += pair1.fwd.sequence + "&" + pair2.rev.sequence + "\n"
                         cofold_string += ">" + pair1.name + "_rev" + "&" + pair2.name +"_fwd" + "\n"
-                        cofold_string += pair1.rev + "&" + pair2.fwd + "\n"
+                        cofold_string += pair1.rev.sequence + "&" + pair2.fwd.sequence + "\n"
 
         cmd = self.config.rnacf_path + " -noPS"
         args = shlex.split(cmd)
